@@ -8,8 +8,8 @@ export default function ShopPage(){
     return(
         <>
         <div>
-            <div className="flex">
-                <div className="my-20">
+            <div className="flex justify-center my-20">
+                <div>
                     <h3 className="font-bold text-xl">Bag</h3>
                     <div>
                         <div className="flex font-bold">
@@ -22,7 +22,7 @@ export default function ShopPage(){
                                 </span>
                                 <p className="flex text-black text-2xl gap-4 mt-8"><FaRegHeart /> <AiOutlineDelete /></p>
                             </div>
-                            <span className="mt-4 ml-24">MRP: $99</span>
+                            <span className="mt-4 ml-52">MRP: $99</span>
                         </div>
                         <hr className="my-10"/>
                         <div className="flex font-bold">
@@ -35,17 +35,18 @@ export default function ShopPage(){
                                 </span>
                                 <p className="flex text-black text-2xl gap-4 mt-8"><FaRegHeart /> <AiOutlineDelete /></p>
                             </div>
-                            <span className="mt-4 ml-24">MRP: $99</span>
+                            <span className="mt-4 ml-52">MRP: $99</span>
                         </div>
+                        <hr className="mt-10"/>
                     </div>
                 </div>
                 <div>
-                    <div>
-                        <h3>Summary</h3>
-                        <p><span>Subtotal</span> <span className="font-bold">$198.00</span></p>
-                        <p><span>Estimated Delivery and Handling</span> <span>Free</span></p>
-                        <p className="border-t-2 border-b-2 py-3"><span>Total</span> <span className="font-bold">$198.00</span></p>
-                        <button>Member Checkout</button>
+                    <div className="mt-10 ml-20 ">
+                        <h3 className="text-xl font-bold mb-7">Summary</h3>
+                        <p className="flex justify-between mb-3"><span>Subtotal</span> <span className="font-bold">$198.00</span></p>
+                        <p className=""><span className="mr-6">Estimated Delivery and Handling</span> <span>Free</span></p>
+                        <p className="border-t-2 border-b-2 py-3 flex justify-between"><span>Total</span> <span className="font-bold">$198.00</span></p>
+                        <button className="border-2 px-20 py-3 rounded-full mt-6 bg-cyan-600 transition-transform transform hover:scale-105">Member Checkout</button>
                     </div>
                 </div>
             </div>
