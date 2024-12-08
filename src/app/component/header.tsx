@@ -31,7 +31,7 @@ export default function Navbar (){
             </div>
             <div className="flex justify-around bg-fuchsia-100">
                 <h2 className="flex md:mr-48 text-indigo-950 text-3xl font-medium my-3"><GiSofa className="text-cyan-500 text-5xl mr-1"/><span className="mt-2">Comforty</span></h2>
-                <button className="flex md:ml-40 bg-white rounded-xl text-indigo-950 font-medium py-3 px-5 my-3 transition-transform transform hover:scale-105"><LuShoppingCart className="mr-2 text-xl"/>Cart<PiNumberCircleTwoFill className="text-xl ml-2"/></button>
+                <Link href="cart" className="flex md:ml-40 bg-white rounded-xl text-indigo-950 font-medium py-3 px-5 my-3 transition-transform transform hover:scale-105"><LuShoppingCart className="mr-2 text-xl"/>Cart<PiNumberCircleTwoFill className="text-xl ml-2"/></Link>
             </div>
             <div className="flex justify-around text-gray-400 font-semibold gap-36 sm:mt-6">
                 <div className=" hidden sm:block">
@@ -39,7 +39,7 @@ export default function Navbar (){
                     <li className="hover:text-cyan-500  transition-transform transform hover:scale-105"><Link href="#">Home</Link></li>
                     <li className="hover:text-cyan-500  transition-transform transform hover:scale-105"><Link href="shop">Shop</Link></li>
                     <li className="hover:text-cyan-500  transition-transform transform hover:scale-105"><Link href="products">Products</Link></li>
-                    <li className="hover:text-cyan-500  transition-transform transform hover:scale-105"><Link href="#">Pages</Link></li>
+                    <li className="hover:text-cyan-500  transition-transform transform hover:scale-105"><Link href="page">Pages</Link></li>
                     <li className="hover:text-cyan-500  transition-transform transform hover:scale-105"><Link href="#">About</Link></li>
                 </ul>
                 </div>
@@ -56,7 +56,7 @@ export default function Navbar (){
                     <li className="my-4"><Link href="#">Home</Link></li>
                     <li className="my-4"><Link href="shop">Shop</Link></li>
                     <li className="my-4"><Link href="products">Products</Link></li>
-                    <li className="my-4"><Link href="#">Pages</Link></li>
+                    <li className="my-4"><Link href="page">Pages</Link></li>
                     <li className="my-4"><Link href="#">About</Link></li>
                 </ul>
                 </SheetContent>
