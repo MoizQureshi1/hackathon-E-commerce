@@ -25,8 +25,8 @@ export default function Navbar (){
                         <option>......</option>
                         <option>Other</option>
                     </select>
-                    <h4>Faqs</h4>
-                    <h4 className="flex"><BiErrorCircle className="mt-1 mr-1"/>Need Help</h4>
+                    <a href="">Faqs</a>
+                    <a href=""className="flex"><BiErrorCircle className="mt-1 mr-1"/>Need Help</a>
                 </div>
             </div>
             <div className="flex justify-around bg-fuchsia-100">
@@ -40,7 +40,7 @@ export default function Navbar (){
                     <li className="hover:text-cyan-500  transition-transform transform hover:scale-105"><Link href="shop">Shop</Link></li>
                     <li className="hover:text-cyan-500  transition-transform transform hover:scale-105"><Link href="products">Products</Link></li>
                     <li className="hover:text-cyan-500  transition-transform transform hover:scale-105"><Link href="page">Pages</Link></li>
-                    <li className="hover:text-cyan-500  transition-transform transform hover:scale-105"><Link href="#">About</Link></li>
+                    <li className="hover:text-cyan-500  transition-transform transform hover:scale-105"><Link href="about">About</Link></li>
                 </ul>
                 </div>
                 <p className="hidden sm:block">Contact: <span className="text-gray-900">(808) 555-0111</span></p>
@@ -57,7 +57,7 @@ export default function Navbar (){
                     <li className="my-4"><Link href="shop">Shop</Link></li>
                     <li className="my-4"><Link href="products">Products</Link></li>
                     <li className="my-4"><Link href="page">Pages</Link></li>
-                    <li className="my-4"><Link href="#">About</Link></li>
+                    <li className="my-4"><Link href="about">About</Link></li>
                 </ul>
                 </SheetContent>
             </Sheet>

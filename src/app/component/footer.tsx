@@ -44,12 +44,12 @@ export default function Footer() {
         </div>
 
       <div className="mt-20 text-center md:text-left ">
-        <h3 className="text-slate-400 text-sm font-bold pb-3">NEWSLETTER</h3>
+        <h3 className="text-slate-400 text-sm font-bold pb-3 md:ml-3">NEWSLETTER</h3>
         <div className="flex mx-3">
         <input type="text" className="text-slate-500 bg-white font-normal border-2 p-3 md:pl-5 pl-2 md:pr-16 pr-6 rounded-lg" placeholder="Your email" />
         <button className="bg-cyan-500 rounded-xl text-white font-bold py-3 md:px-8 px-3 ml-3 transition-transform transform hover:scale-105">Subscribe</button>
         </div>
-        <p className="text-slate-400 text-md mt-3">Lorem ipsum dolor, sit amet consectetur adipisicing elit. <br /> Cupiditate velit corrupti accusamus.</p>
+        <p className="text-slate-400 text-md mt-3 md:ml-3">Lorem ipsum dolor, sit amet consectetur adipisicing elit. <br /> Cupiditate velit corrupti accusamus.</p>
       </div>
       </div>
       
