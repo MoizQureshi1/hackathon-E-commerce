@@ -19,7 +19,7 @@ export default function ProductsPage (){
             <h2 className="text-3xl font-bold text-center md:text-left lg:ml-36 md:ml-14 mb-7 mt-10">All Products</h2>
             <div className="flex flex-col md:flex-row lg:gap-20 gap-10 lg:mx-36 mx-10 mt-10">
                 <div className="flex justify-center transition-transform transform hover:scale-105">
-                <Link href="whitechaircard">
+                <Link href="whiteChairItem">
                     <Image src={whitechair} alt="White Chair" width={230} height={500} className="rounded-t-lg"/>
                     <div className="flex justify-between">
                     <span>
@@ -33,7 +33,7 @@ export default function ProductsPage (){
                 </Link>
                 </div>
                 <div className="flex justify-center transition-transform transform hover:scale-105">
-                <Link href="pinkchaircard">
+                <Link href="pinkChairItem">
                     <Image src={pinkchair} alt="Pink Chair" width={230} height={500} className="rounded-t-lg"/>
                     <div className="flex justify-between">
                     <span>
@@ -47,7 +47,7 @@ export default function ProductsPage (){
                 </Link>
                 </div>
                 <div className="flex justify-center transition-transform transform hover:scale-105">
-                <Link href="orangechaircard">
+                <Link href="orangeChairItem">
                     <Image src={orangechair} alt="Orange Chair" width={230} height={500} className="rounded-t-lg"/>
                     <div className="flex justify-between">
                     <span>
@@ -61,7 +61,7 @@ export default function ProductsPage (){
                 </Link>
                 </div>
                 <div className="flex justify-center transition-transform transform hover:scale-105">
-                <Link href="whitechaircard">
+                <Link href="whiteSofaItem">
                     <Image src={whitesofa} alt="White Chair" width={230} height={500} className="rounded-t-lg"/>
                    <div className="flex justify-between">
                     <span>
@@ -78,7 +78,7 @@ export default function ProductsPage (){
 
             <div className="flex flex-col md:flex-row lg:gap-20 gap-10 lg:mx-36 mx-10 mt-10">
                 <div className="flex justify-center transition-transform transform hover:scale-105">
-                <Link href="whitechaircard">
+                <Link href="tableChairItem">
                     <Image src={tablechair} alt="Table Chair" width={230} height={500} className="rounded-t-lg"/>
                     <div className="flex justify-between">
                     <span>
@@ -92,7 +92,7 @@ export default function ProductsPage (){
                 </Link>
                 </div>
                 <div className="flex justify-center transition-transform transform hover:scale-105">
-                <Link href="blackchaircard">
+                <Link href="grayChairItem">
                     <Image src={text2} alt="Text Chair" width={230} height={500} className="rounded-t-lg"/>
                     <div className="flex justify-between">
                     <span>
@@ -106,7 +106,7 @@ export default function ProductsPage (){
                 </Link>
                 </div>
                 <div className="flex justify-center transition-transform transform hover:scale-105">
-                <Link href="blackchaircard">
+                <Link href="plasticChairItem">
                     <Image src={sleepchair} alt="Sleeping Chair" width={230} height={500} className="rounded-t-lg"/>
                     <div className="flex justify-between">
                     <span>
@@ -120,7 +120,7 @@ export default function ProductsPage (){
                 </Link>
                 </div>
                 <div className="flex justify-center transition-transform transform hover:scale-105">
-                <Link href="whitechaircard">
+                <Link href="whiteSofaItem">
                     <Image src={whitechair2} alt="WhiteChair" width={230} height={500} className="rounded-t-lg"/>
                    <div className="flex justify-between">
                     <span>
@@ -137,7 +137,7 @@ export default function ProductsPage (){
 
             <div className="flex flex-col md:flex-row lg:gap-20 gap-10 lg:mx-36 mx-10 mt-10">
                 <div className="flex justify-center transition-transform transform hover:scale-105">
-                <Link href="blackchaircard">
+                <Link href="styleChairItem">
                     <Image src={foot3chair} alt="3 Foot Chair" width={230} height={500} className="rounded-t-lg"/>
                     <div className="flex justify-between">
                     <span>
@@ -151,7 +151,7 @@ export default function ProductsPage (){
                 </Link>
                 </div>
                 <div className="flex justify-center transition-transform transform hover:scale-105">
-                <Link href="pinkchaircard">
+                <Link href="pinkChairItem">
                     <Image src={pinkchair} alt="Pink Chair" width={230} height={500} className="rounded-t-lg"/>
                     <div className="flex justify-between">
                     <span>
@@ -165,7 +165,7 @@ export default function ProductsPage (){
                     </Link>
                 </div>
                 <div className="flex justify-center transition-transform transform hover:scale-105">
-                <Link href="orangechaircard">
+                <Link href="orangeChairItem">
                     <Image src={orangechair} alt="Orange Cahir" width={230} height={500} className="rounded-t-lg"/>
                     <div className="flex justify-between">
                     <span>
@@ -179,7 +179,7 @@ export default function ProductsPage (){
                 </Link>
                 </div>
                 <div className="flex justify-center transition-transform transform hover:scale-105">
-                <Link href="blackchaircard">
+                <Link href="standChairItem">
                     <Image src={onestandchair} alt="One Stand Chair" width={230} height={500} className="rounded-t-lg"/>
                    <div className="flex justify-between">
                     <span>
@@ -197,15 +197,15 @@ export default function ProductsPage (){
             <div className="flex justify-center bg-slate-100 mt-24 rounded-md">
                 <div className="text-black my-24 text-center">
                     <h4 className="text-3xl font-semibold mb-12">Or Subcribe To The Newslatter</h4>
-                    <p><input type="text" className=" border-b-2 border-slate-600 bg-slate-100 pb-1 md:pr-48 pr-12 mr-4" placeholder="Email Address..." /><a href="" className="border-b-2 pb-2 px-2 border-slate-600">SUBMIT</a></p>
+                    <p><input type="text" className=" border-b-2 border-slate-600 bg-slate-100 pb-1 md:pr-48 pr-12 mr-4" placeholder="Email Address..." required/><a href="https://www.linkedin.com/in/moiz-qureshi-0884592b9" target="blank" className="border-b-2 pb-2 px-2 border-slate-600">SUBMIT</a></p>
                     <h1 className="text-4xl font-semibold my-14 mx-5">Follow Products And Discound On Instagram</h1>
                     <div className="flex flex-col md:flex-row gap-5 mx-28">
-                        <Link href="whitechaircard" className="flex justify-center"><Image src={tablechair} alt="Table Chair" className=" md:w-36 w-60 rounded-lg"/></Link>
-                        <Link href="blackchaircard" className="flex justify-center"><Image src={foot3chair} alt="3 Foot Chair" className=" md:w-36 w-60 rounded-lg"/></Link>
-                        <Link href="pinkchaircard" className="flex justify-center"><Image src={pinkchair} alt="Pink Chair" className=" md:w-36 w-60 rounded-lg"/></Link>
-                        <Link href="whitechaircard" className="flex justify-center"><Image src={whitechair2} alt="White Chair" className=" md:w-36 w-60 rounded-lg"/></Link>
-                        <Link href="orangechaircard" className="flex justify-center"><Image src={orangechair} alt="Orange Chair" className=" md:w-36 w-60 rounded-lg"/></Link>
-                        <Link href="blackchaircard" className="flex justify-center"><Image src={onestandchair} alt="One Stand Chair" className=" md:w-36 w-60 rounded-lg"/></Link>
+                        <Link href="tableChairItem" className="flex justify-center"><Image src={tablechair} alt="Table Chair" className=" md:w-36 w-60 rounded-lg"/></Link>
+                        <Link href="styleChairItem" className="flex justify-center"><Image src={foot3chair} alt="3 Foot Chair" className=" md:w-36 w-60 rounded-lg"/></Link>
+                        <Link href="pinkChairItem" className="flex justify-center"><Image src={pinkchair} alt="Pink Chair" className=" md:w-36 w-60 rounded-lg"/></Link>
+                        <Link href="whiteSofaItem" className="flex justify-center"><Image src={whitechair2} alt="White Chair" className=" md:w-36 w-60 rounded-lg"/></Link>
+                        <Link href="orangeChairItem" className="flex justify-center"><Image src={orangechair} alt="Orange Chair" className=" md:w-36 w-60 rounded-lg"/></Link>
+                        <Link href="standChairItem" className="flex justify-center"><Image src={onestandchair} alt="One Stand Chair" className=" md:w-36 w-60 rounded-lg"/></Link>
                     </div>
                 </div>
             </div>

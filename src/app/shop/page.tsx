@@ -13,7 +13,7 @@ export default function ShopPage(){
                 <div className="md:mx-24 text-center sm:text-left">
                     <h3 className="font-bold text-xl text-center md:text-left mb-10">Bag</h3>
                     <div>
-                        <Link href="orangechaircard">
+                        <Link href="orangeChairItem">
                         <div className="sm:flex font-bold transition-transform transform hover:scale-105">
                             <div className="flex justify-center md:justify-start">
                             <Image src={orangechair} alt="Orange Chair" width={180}/>
@@ -30,7 +30,7 @@ export default function ShopPage(){
                         </div>
                         </Link>
                         <hr className="my-10 "/>
-                        <Link href="blackchaircard">
+                        <Link href="styleChairItem">
                         <div className="sm:flex font-bold transition-transform transform hover:scale-105">
                             <div className="flex justify-center md:justify-start">
                             <Image src={foot3chair} alt="3 Foot Chair" width={180}/>

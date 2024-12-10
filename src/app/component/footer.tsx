@@ -26,22 +26,22 @@ export default function Footer() {
         <div className="pt-4 sm:mt-12">
           <h3 className="text-slate-400 text-lg">CATEGORY</h3>
           <ul className="font-semibold md:mt-4 mt-2">
-            <li><Link href="/about" className="hover:underline text-gray-500">Sofa</Link></li>
-            <li><Link href="/product" className="hover:underline text-gray-500">Armchair</Link></li>
-            <li><a href="https://www.aboutamazon.com/" target="blank" className="hover:underline text-gray-500">Wing Chair</a></li>
-            <li><a href="https://ir.aboutamazon.com/overview/default.aspx" target="blank" className="hover:underline text-gray-500">Desk Chair</a></li>
-            <li><a href="https://ir.aboutamazon.com/overview/default.aspx" target="blank" className="hover:underline text-gray-500">Wooden Chair</a></li>
-            <li><a href="https://ir.aboutamazon.com/overview/default.aspx" target="blank" className="hover:underline text-gray-500">Park Bench</a></li>
+            <li><Link href="greenSofaItem" className="hover:underline text-gray-500">Sofa</Link></li>
+            <li><Link href="plasticChairItem" className="hover:underline text-gray-500">Armchair</Link></li>
+            <li><Link href="styleChairItem" className="hover:underline text-gray-500">Wing Chair</Link></li>
+            <li><Link href="standChairItem"  className="hover:underline text-gray-500">Desk Chair</Link></li>
+            <li><Link href="tableChairItem" className="hover:underline text-gray-500">Wooden Chair</Link></li>
+            <li><Link href="orangeChairItem" className="hover:underline text-gray-500">Park Bench</Link></li>
           </ul>
         </div>
 
         <div className="pt-4 sm:mt-12 md:ml-12">
           <h3 className="text-slate-400 text-xl">Support</h3>
           <ul className="font-semibold md:mt-4 mt-2">
-            <li><a href="https://www.amazon.com/ap/register?showRememberMe=true&openid.pape.max_auth_age=0&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&language=en_US&pageId=amzn_retail_yourorders_us&openid.return_to=https%3A%2F%2Fwww.amazon.com%2Fyour-orders%2Forders%3F_encoding%3DUTF8%26ref_%3Dfooter_yo&prevRID=8FKSD3ZG312Z599CWPD0&openid.assoc_handle=amzn_retail_yourorders_us&openid.mode=checkid_setup&prepopulatedLoginId=&failedSignInCount=0&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0" target="blank" className="hover:underline text-gray-500">Help & Support</a></li>
-            <li><a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=468520&ref_=footer_shiprates" target="blank" className="hover:underline text-gray-500">Tearms & Condition</a></li>
-            <li><a href="https://www.amazon.com/ap/signin?openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2Fyour-orders%2Forders%3F_encoding%3DUTF8%26ref_%3Dfooter_yo&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=amzn_retail_yourorders_us&openid.mode=checkid_setup&language=en_US&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0" target="blank" className="hover:underline text-gray-500">Privacy Policy</a></li>
-            <li><a href="https://www.amazon.com/ap/signin?clientContext=135-6575674-7058946&openid.pape.max_auth_age=3600&openid.return_to=https%3A%2F%2Fwww.amazon.com%2Fgp%2Fdigital%2Ffiona%2Fmanage&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=usflex&openid.mode=checkid_setup&marketPlaceId=USAmazon&language=en_US&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0" target="blank" className="hover:underline text-gray-500">Help</a></li>
+            <li><Link href="page" className="hover:underline text-gray-500">Help & Support</Link></li>
+            <li><Link href="about" className="hover:underline text-gray-500">Tearms & Condition</Link></li>
+            <li><Link href="about" className="hover:underline text-gray-500">Privacy Policy</Link></li>
+            <li><Link href="page" className="hover:underline text-gray-500">Help</Link></li>
           </ul>
         </div>
         </div>
@@ -50,8 +50,8 @@ export default function Footer() {
       <div className="mt-20 text-center lg:text-left">
         <h3 className="text-slate-400 text-sm font-bold pb-3 md:ml-3">NEWSLETTER</h3>
         <div className="flex justify-center mx-3">
-        <input type="text" className="text-slate-500 bg-white font-normal border-2 p-3 md:pl-5 pl-2 md:pr-16 pr-6 rounded-lg" placeholder="Your email" />
-        <button className="bg-cyan-500 rounded-xl text-white font-bold py-3 md:px-8 px-3 ml-3 transition-transform transform hover:scale-105">Subscribe</button>
+        <input type="text" className="text-slate-500 bg-white font-normal border-2 p-3 md:pl-5 pl-2 md:pr-16 pr-6 rounded-lg" placeholder="Your email" required/>
+        <a href="https://www.youtube.com/@solve-swift" target="blank"><button className="bg-cyan-500 rounded-xl text-white font-bold py-3 md:px-8 px-3 ml-3 transition-transform transform hover:scale-105">Subscribe</button></a>
         </div>
         <p className="text-slate-400 text-md mt-3 md:ml-3">Lorem ipsum dolor, sit amet consectetur adipisicing elit. <br /> Cupiditate velit corrupti accusamus.</p>
       </div>
@@ -59,7 +59,7 @@ export default function Footer() {
       
 
       <div className="border-t-2 mt-8 text-gray-400 py-3 text-lg flex flex-col md:flex-row text-center md:text-left justify-around">
-        <p className="mt-5">&copy; {new Date().getFullYear()} - blogy - Designed & Develop by <span className="text-black">ZakirSoft</span></p>
+        <p className="mt-5">&copy; {new Date().getFullYear()} - blogy - Designed & Develop by <a href="https://www.facebook.com/profile.php?id=100084536345048" target="blank"><span className="text-black underline">Moiz Qureshi</span></a></p>
         <p className="flex justify-center text-5xl gap-6 mt-2"><FaCcPaypal /> <RiVisaLine /></p>
       </div>
     </footer>

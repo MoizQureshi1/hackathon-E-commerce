@@ -28,16 +28,16 @@ export default function Category (){
             <div className="flex flex-col md:flex-row justify-center gap-4 mt-28 mx-10">
                 <div className="flex justify-center">
                 <Image src={text} alt="text" height={400} />
-                <Link href="orangechaircard"><Image src={orangechair} alt="Orange Chair" height={474} className="rounded-lg transition-transform transform hover:scale-105"/></Link>
+                <Link href="orangeChairItem"><Image src={orangechair} alt="Orange Chair" height={474} className="rounded-lg transition-transform transform hover:scale-105"/></Link>
                 </div>
                 <div className="flex justify-center gap-4 ml-6">
                     <div>
-                        <Link href="whitechaircard"><Image src={whitesofa} alt="White Sofa" width={230} className="rounded-lg transition-transform transform hover:scale-105"/></Link>
-                        <Link href="whitechaircard"><Image src={whitechair2} alt="White Chair" width={230} className="mt-4 rounded-lg transition-transform transform hover:scale-105"/></Link>
+                        <Link href="whiteSofaItem"><Image src={whitesofa} alt="White Sofa" width={230} className="rounded-lg transition-transform transform hover:scale-105"/></Link>
+                        <Link href="whiteChairItem"><Image src={whitechair2} alt="White Chair" width={230} className="mt-4 rounded-lg transition-transform transform hover:scale-105"/></Link>
                     </div>
                     <div>
-                        <Link href="whitechaircard"><Image src={whitechair2} alt="White Chair" width={230} className="mb-4 rounded-lg transition-transform transform hover:scale-105"/></Link>
-                        <Link href="blackchaircard"><Image src={graychair} alt="Gray Cair" width={230} className="rounded-lg transition-transform transform hover:scale-105"/></Link>
+                        <Link href="whiteChairItem"><Image src={whitechair2} alt="White Chair" width={230} className="mb-4 rounded-lg transition-transform transform hover:scale-105"/></Link>
+                        <Link href="grayChairItem"><Image src={graychair} alt="Gray Cair" width={230} className="rounded-lg transition-transform transform hover:scale-105"/></Link>
                     </div>
                 </div>
             </div>

@@ -13,7 +13,7 @@ export default function Featured (){
             <h2 className="text-3xl font-bold text-center md:text-left md:ml-36 mb-7 mt-2">Featured Products</h2>
             <div className="flex flex-col md:flex-row lg:gap-20 gap-10 lg:mx-36 mx-16">
                 <div className="flex justify-center transition-transform transform hover:scale-105">
-                <Link href="whitechaircard">
+                <Link href="whiteChairItem">
                     <Image src={whitechair} alt="White Chair" width={230} height={500} className="rounded-t-lg"/>
                     <div className="flex justify-between">
                     <span>
@@ -27,7 +27,7 @@ export default function Featured (){
                 </Link>
                 </div>
                 <div className="flex justify-center  transition-transform transform hover:scale-105">
-                <Link href="pinkchaircard">
+                <Link href="pinkChairItem">
                     <Image src={pinkchair} alt="Pink Chair" width={230} height={500} className="rounded-t-lg"/>
                     <div className="flex justify-between">
                     <span>
@@ -41,7 +41,7 @@ export default function Featured (){
                 </Link>
                 </div>
                 <div className="flex justify-center  transition-transform transform hover:scale-105">
-                <Link href="orangechaircard">
+                <Link href="orangeChairItem">
                     <Image src={orangechair} alt="Orange Chair" width={230} height={500} className="rounded-t-lg"/>
                     <div className="flex justify-between">
                     <span>
@@ -55,7 +55,7 @@ export default function Featured (){
                 </Link>
                 </div>
                 <div className="flex justify-center  transition-transform transform hover:scale-105">
-                <Link href="whitechaircard">
+                <Link href="whiteSofaItem">
                     <Image src={whitesofa} alt="White Sofa" width={230} height={500} className="rounded-t-lg"/>
                    <div className="flex justify-between">
                     <span>

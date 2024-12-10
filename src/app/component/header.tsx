@@ -25,8 +25,8 @@ export default function Navbar (){
                         <option>......</option>
                         <option>Other</option>
                     </select>
-                    <a href="">Faqs</a>
-                    <a href=""className="flex"><BiErrorCircle className="mt-1 mr-1"/>Need Help</a>
+                    <Link href="page" className="hover:underline">Faqs</Link>
+                    <Link href="page"className="flex hover:underline"><BiErrorCircle className="mt-1 mr-1"/>Need Help</Link>
                 </div>
             </div>
             <div className="flex justify-around bg-fuchsia-100">

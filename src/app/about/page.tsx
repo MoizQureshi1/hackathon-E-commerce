@@ -51,21 +51,21 @@ export default function Aboutpage (){
             <div className="mx-10">
                 <h2 className="text-3xl text-center md:text-left font-semibold sm:ml-20 lg:ml-44 my-8 pt-20">Our Popular Products</h2>
                 <div className="flex flex-col md:flex-row justify-center gap-5 mb-32">
-                    <Link href="" className="flex justify-center">
+                    <Link href="greenSofaItem" className="flex justify-center">
                     <div className="transition-transform transform hover:scale-105">
                         <Image src={bigsofa} alt="Big Sofa" width={500}/>
                         <p className="mt-5 text-slate-600 font-semibold">The Popular Suede Sofa</p>
                         <span className="mt-5 text-slate-600 font-semibold">$99.00</span>
                     </div>
                     </Link>
-                    <Link href="blackchaircard" className="flex justify-center">
+                    <Link href="blackChairItem" className="flex justify-center">
                     <div className="transition-transform transform hover:scale-105">
                         <Image src={black3chair} alt="Black Chair" width={243}/>
                         <p className="mt-5 text-slate-600 font-semibold">The Dandy Chair</p>
                         <span className="mt-5 text-slate-600 font-semibold">$99.00</span>
                     </div>
                     </Link>
-                    <Link href="blackchaircard" className="flex justify-center">
+                    <Link href="blackChairItem" className="flex justify-center">
                     <div className="transition-transform transform hover:scale-105">
                         <Image src={blackchair} alt="Black Chair" width={241}/>
                         <p className="mt-5 text-slate-600 font-semibold">The Dandy Chair</p>
