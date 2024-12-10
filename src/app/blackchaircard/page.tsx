@@ -2,7 +2,7 @@ import Image from "next/image";
 import whitechair2 from "../../../public/images/whitechair2.png"
 import onestandchair from "../../../public/images/onestandchair.png"
 import orangechair from "../../../public/images/orangechair.png"
-import pinkchair from "../../../public/images/pinkchair.png"
+import graychair from "../../../public/images/graychair.png"
 import sleepchair from "../../../public/images/sleepchair.png"
 import foot3chair from "../../../public/images/foot3chair.png"
 import { LuShoppingCart } from "react-icons/lu";
@@ -13,7 +13,7 @@ export default function PinkChairCard (){
         <>
         <div className="max-w-screen-2xl mx-auto">
         <div className="flex flex-col md:flex-row justify-center my-28 mx-20 md:mx-8 lg:mx-0">
-            <Image src={pinkchair} alt="Card Chair" width={450} className="rounded-lg "/>
+            <Image src={graychair} alt="Card Chair" width={450} className="rounded-lg "/>
             <div className="md:ml-14 mt-5">
                 <h2 className="text-indigo-950 text-4xl font-bold ">Library Stool <br /> Chair</h2>
                 <p className="border-2 bg-cyan-600 p-1 rounded-2xl md:mr-96 text-center text-white mt-4">$20.00 USD</p>

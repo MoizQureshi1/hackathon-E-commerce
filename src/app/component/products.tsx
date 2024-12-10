@@ -15,9 +15,9 @@ export default function Products (){
         <>
         <div className=" mb-20 max-w-screen-2xl mx-auto">
             <h2 className="text-3xl font-bold text-center mb-6 mt-32">Our Products</h2>
-            <div className="flex flex-col md:flex-row gap-20 md:mx-36 mx-20 mt-10">
-                <div className="transition-transform transform hover:scale-105">
-                <a href="#" target="blank">
+            <div className="flex flex-col md:flex-row lg:gap-20 gap-10 lg:mx-36 mt-10">
+                <div className="flex justify-center transition-transform transform hover:scale-105">
+                <Link href="whitechaircard">
                     <Image src={whitechair} alt="White Chair" width={230} height={500} className="rounded-t-lg"/>
                     <div className="flex justify-between">
                     <span>
@@ -25,12 +25,12 @@ export default function Products (){
                     <p className="text-black pt-2 font-semibold text-lg">$20 </p>
                     </span>
                     <span className="p-1 my-4 bg-cyan-500 rounded-md">
-                    <LuShoppingCart className="text-4xl pt-2 pb-2 sm:mr-80 md:mr-0"/>
+                    <LuShoppingCart className="text-4xl pt-2 pb-2"/>
                     </span>
                     </div>
-                </a>
+                </Link>
                 </div>
-                <div className="transition-transform transform hover:scale-105">
+                <div className="flex justify-center transition-transform transform hover:scale-105">
                     <Link href="pinkchaircard">
                     <Image src={pinkchair} alt="Pimk Chair" width={230} height={500} className="rounded-t-lg"/>
                     <div className="flex justify-between">
@@ -39,13 +39,13 @@ export default function Products (){
                     <p className="text-black-400 pt-2 font-semibold text-lg">$20 <del className="text-slate-400"> $30</del></p>
                     </span>
                     <span className="p-1 my-4 bg-slate-100 rounded-md">
-                    <LuShoppingCart className="text-4xl pt-2 pb-2 sm:mr-80 md:mr-0"/>
+                    <LuShoppingCart className="text-4xl pt-2 pb-2"/>
                     </span>
                     </div>
                     </Link>
                 </div>
-                <div className="transition-transform transform hover:scale-105">
-                <a href="#" target="blank">
+                <div className="flex justify-center transition-transform transform hover:scale-105">
+                <Link href="orangechaircard">
                     <Image src={orangechair} alt="Orange Chair" width={230} height={500} className="rounded-t-lg"/>
                     <div className="flex justify-between">
                     <span>
@@ -53,13 +53,13 @@ export default function Products (){
                     <p className="text-black pt-2 font-semibold text-lg">$20</p>
                     </span>
                     <span className="p-1 my-4 bg-slate-100 rounded-md">
-                    <LuShoppingCart className="text-4xl pt-2 pb-2 sm:mr-80 md:mr-0"/>
+                    <LuShoppingCart className="text-4xl pt-2 pb-2"/>
                     </span>
                     </div>
-                </a>
+                </Link>
                 </div>
-                <div className="transition-transform transform hover:scale-105">
-                <a href="#" target="blank">
+                <div className="flex justify-center transition-transform transform hover:scale-105">
+                <Link href="whitechaircard">
                     <Image src={whitesofa} alt="White Sofa" width={230} height={500} className="rounded-t-lg"/>
                    <div className="flex justify-between">
                     <span>
@@ -67,15 +67,15 @@ export default function Products (){
                     <p className="text-black pt-2 font-semibold text-lg">$20</p>
                     </span>
                     <span className="p-1 my-4 bg-slate-100 rounded-md">
-                    <LuShoppingCart className="text-4xl pt-2 pb-2sm:mr-80 md:mr-0"/>
+                    <LuShoppingCart className="text-4xl pt-2 pb-2"/>
                     </span>
                     </div>
-                </a>
+                </Link>
                 </div>
             </div>
-            <div className="flex flex-col md:flex-row gap-20 md:mx-36 mx-20 mt-10">
-                <div className="transition-transform transform hover:scale-105">
-                <a href="#" target="blank">
+            <div className="flex flex-col md:flex-row lg:gap-20 gap-10 lg:mx-36 mt-10">
+                <div className="flex justify-center transition-transform transform hover:scale-105">
+                <Link href="blackchaircard">
                     <Image src={foot3chair} alt="3 Foot Chair" width={230} height={500} className="rounded-t-lg"/>
                     <div className="flex justify-between">
                     <span>
@@ -83,13 +83,13 @@ export default function Products (){
                     <p className="text-black pt-2 font-semibold text-lg">$20 </p>
                     </span>
                     <span className="p-1 my-4 bg-slate-100 rounded-md">
-                    <LuShoppingCart className="text-4xl pt-2 pb-2 sm:mr-80 md:mr-0"/>
+                    <LuShoppingCart className="text-4xl pt-2 pb-2"/>
                     </span>
                     </div>
-                </a>
+                </Link>
                 </div>
-                <div className="transition-transform transform hover:scale-105">
-                <a href="#" target="blank">
+                <div className="flex justify-center transition-transform transform hover:scale-105">
+                <Link href="blackchaircard">
                     <Image src={text2} alt="Text 2 Chair" width={230} height={500} className="rounded-t-lg"/>
                     <div className="flex justify-between">
                     <span>
@@ -97,13 +97,13 @@ export default function Products (){
                     <p className="text-black-400 pt-2 font-semibold text-lg">$20 <del className="text-slate-400"> $30</del></p>
                     </span>
                     <span className="p-1 my-4 bg-slate-100 rounded-md">
-                    <LuShoppingCart className="text-4xl pt-2 pb-2 sm:mr-80 md:mr-0"/>
+                    <LuShoppingCart className="text-4xl pt-2 pb-2"/>
                     </span>
                     </div>
-                </a>
+                </Link>
                 </div>
-                <div className="transition-transform transform hover:scale-105">
-                <a href="#" target="blank">
+                <div className="flex justify-center transition-transform transform hover:scale-105">
+                <Link href="blackchaircard">
                     <Image src={sleepchair} alt="Sleeping Chair" width={230} height={500} className="rounded-t-lg"/>
                     <div className="flex justify-between">
                     <span>
@@ -111,13 +111,13 @@ export default function Products (){
                     <p className="text-black pt-2 font-semibold text-lg">$20</p>
                     </span>
                     <span className="p-1 my-4 bg-slate-100 rounded-md">
-                    <LuShoppingCart className="text-4xl pt-2 pb-2 sm:mr-80 md:mr-0"/>
+                    <LuShoppingCart className="text-4xl pt-2 pb-2"/>
                     </span>
                     </div>
-                </a>
+                </Link>
                 </div>
-                <div className="transition-transform transform hover:scale-105">
-                <a href="#" target="blank">
+                <div className="flex justify-center transition-transform transform hover:scale-105">
+                <Link href="whitechaircard">
                     <Image src={whitechair2} alt="White Chair" width={230} height={500} className="rounded-t-lg"/>
                    <div className="flex justify-between">
                     <span>
@@ -125,10 +125,10 @@ export default function Products (){
                     <p className="text-black pt-2 font-semibold text-lg">$20</p>
                     </span>
                     <span className="p-1 my-4 bg-slate-100 rounded-md">
-                    <LuShoppingCart className="text-4xl pt-2 pb-2 sm:mr-80 md:mr-0"/>
+                    <LuShoppingCart className="text-4xl pt-2 pb-2"/>
                     </span>
                     </div>
-                </a>
+                </Link>
                 </div>
             </div>
         </div>
