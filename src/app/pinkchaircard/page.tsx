@@ -28,7 +28,7 @@ export default function PinkChairCard (){
             </div>
             <div className="flex flex-col md:flex-row justify-around gap-11 lg:mx-36 md:mx-16 mb-24">
                 <div className="flex justify-center transition-transform transform hover:scale-105">
-                    <Link href="pinkchaircard">
+                    <Link href="blackchaircard">
                         <Image src={sleepchair} alt="Sleep Chair" width={180} height={500} className="rounded-t-lg"/>
                         <div className="flex justify-between">
                                 <p className="pt-2 text-md font-semibold text-slate-500 mt-0.5">Library Stool Chair</p>
@@ -37,7 +37,7 @@ export default function PinkChairCard (){
                     </Link>
                 </div>
                 <div className="flex justify-center transition-transform transform hover:scale-105">
-                    <Link href="pinkchaircard">
+                    <Link href="whitechaircard">
                         <Image src={whitechair2} alt="White Chair" width={180} height={500} className="rounded-t-lg"/>
                         <div className="flex justify-between">
                                 <p className="pt-2 text-md font-semibold text-slate-500 mt-0.5">Library Stool Chair</p>
@@ -46,7 +46,7 @@ export default function PinkChairCard (){
                     </Link>
                 </div>
                 <div className="flex justify-center transition-transform transform hover:scale-105">
-                    <Link href="pinkchaircard">
+                    <Link href="blackchaircard">
                         <Image src={onestandchair} alt="One Stand Chair" width={180} height={500} className="rounded-t-lg"/>
                         <div className="flex justify-between">
                                 <p className="pt-2 text-md font-semibold text-slate-500 mt-0.5">Library Stool Chair</p>
@@ -55,7 +55,7 @@ export default function PinkChairCard (){
                     </Link>
                 </div>
                 <div className="flex justify-center transition-transform transform hover:scale-105">
-                    <Link href="pinkchaircard">
+                    <Link href="orangechaircard">
                         <Image src={orangechair} alt="Orange Chair" width={180} height={500} className="rounded-t-lg"/>
                         <div className="flex justify-between">
                                 <p className="pt-2 text-md font-semibold text-slate-500 mt-0.5">Library Stool Chair</p>
@@ -64,7 +64,7 @@ export default function PinkChairCard (){
                     </Link>
                 </div>
                 <div className="flex justify-center transition-transform transform hover:scale-105">
-                    <Link href="pinkchaircard">
+                    <Link href="blackchaircard">
                         <Image src={foot3chair} alt="3 Foot Chair" width={180} height={500} className="rounded-t-lg"/>
                         <div className="flex justify-between">
                                 <p className="pt-2 text-md font-semibold text-slate-500 mt-0.5">Library Stool Chair</p>
