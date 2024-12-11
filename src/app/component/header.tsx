@@ -47,7 +47,7 @@ export default function Navbar (){
             </div>
             <Sheet>
                 <div className="flex justify-around my-3">
-                <SheetTrigger className="block sm:hidden text-3xl"><HiOutlineBars3CenterLeft /></SheetTrigger>
+                <SheetTrigger className="block sm:hidden text-3xl bg-white"><HiOutlineBars3CenterLeft /></SheetTrigger>
                 <p className="block sm:hidden text-gray-400 font-semibold mt-1.5">Contact: <span className="text-gray-900">(808) 555-0111</span></p>
                 </div>
                 <SheetContent>

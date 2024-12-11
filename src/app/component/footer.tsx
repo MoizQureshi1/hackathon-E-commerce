@@ -60,7 +60,7 @@ export default function Footer() {
 
       <div className="border-t-2 mt-8 text-gray-400 py-3 text-lg flex flex-col md:flex-row text-center md:text-left justify-around">
         <p className="mt-5">&copy; {new Date().getFullYear()} - blogy - Designed & Develop by <a href="https://www.facebook.com/profile.php?id=100084536345048" target="blank"><span className="text-black underline">Moiz Qureshi</span></a></p>
-        <p className="flex justify-center text-5xl gap-6 mt-2"><FaCcPaypal /> <RiVisaLine /></p>
+        <p className="flex justify-center text-5xl gap-6 mt-2"><a href="https://www.paypal.com/pk/home" className="transition-transform transform hover:scale-105"><FaCcPaypal /></a> <a href="https://pk.visamiddleeast.com/pay-with-visa/find-a-card/credit-cards.html" className="transition-transform transform hover:scale-105"><RiVisaLine /></a></p>
       </div>
     </footer>
     </>
