@@ -36,7 +36,7 @@ export default function Navbar (){
             <div className="flex justify-around text-gray-400 font-semibold lg:gap-36 sm:mt-6">
                 <div className="hidden sm:block">
                 <ul className="flex gap-6">
-                    <li className="hover:text-cyan-500  transition-transform transform hover:scale-105"><Link href="http://localhost:3000/">Home</Link></li>
+                    <li className="hover:text-cyan-500  transition-transform transform hover:scale-105"><Link href="">Home</Link></li>
                     <li className="hover:text-cyan-500  transition-transform transform hover:scale-105"><Link href="shop">Shop</Link></li>
                     <li className="hover:text-cyan-500  transition-transform transform hover:scale-105"><Link href="products">Products</Link></li>
                     <li className="hover:text-cyan-500  transition-transform transform hover:scale-105"><Link href="page">Pages</Link></li>
@@ -53,7 +53,7 @@ export default function Navbar (){
                 <SheetContent>
                 <h2 className="flex text-indigo-950 text-3xl font-medium mt-6"><GiSofa className="text-cyan-500 text-5xl mr-1"/><span className="mt-2">Comforty</span></h2>
                 <ul>
-                    <li className="my-4"><Link href="http://localhost:3000/">Home</Link></li>
+                    <li className="my-4"><Link href="">Home</Link></li>
                     <li className="my-4"><Link href="shop">Shop</Link></li>
                     <li className="my-4"><Link href="products">Products</Link></li>
                     <li className="my-4"><Link href="page">Pages</Link></li>
