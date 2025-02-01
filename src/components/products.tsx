@@ -16,27 +16,10 @@ interface Product {
   tags: string[];
 }
 
-export default async function Products() {
+export default async function Featured() {
   // Fetch the featured products from the Sanity CMS
-  const CMSProduct: Product[] = await client.fetch(`
-    *[_type == "products" && "featured" in tags] {
-      _id,
-      title,
-      price,
-      priceWithoutDiscount,
-      badge,
-      "imageURL": image.asset->url,
-      category->{
-        _id,
-        title
-      },
-      description,
-      inventory,
-      tags,
-    }
-  `);
-  const CMSInsta: Product[] = await client.fetch(`
-    *[_type == "products" && "instagram" in tags] {
+  const CMSFeatured: Product[] = await client.fetch(`
+    *[_type == "products" && "featured" in tags][0..7] {
       _id,
       title,
       price,
@@ -53,8 +36,7 @@ export default async function Products() {
     }
   `);
 
-  console.log(CMSProduct);
-  console.log(CMSInsta);
+  console.log(CMSFeatured);
 
   return (
     <div className="max-w-screen-2xl mx-auto">
@@ -62,7 +44,7 @@ export default async function Products() {
         Featured Products
       </h2>
         <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mx-6 md:mx-40 mb-20">
-        {CMSProduct.map((feature, index) => (
+        {CMSFeatured.map((feature, index) => (
           <div key={feature._id}>
             <div className="flex justify-center transition-transform transform hover:scale-105">
               {/* Directly use <Link> without <a> */}
@@ -140,22 +122,6 @@ export default async function Products() {
           </div>
         ))}
       </div>
-            <div className="flex justify-center bg-slate-100 mt-24 rounded-md">
-                <div className="text-black my-24 text-center">
-                    <h4 className="text-3xl font-semibold mb-12">Or Subcribe To The Newslatter</h4>
-                    <p><input type="text" className=" border-b-2 border-slate-600 bg-slate-100 pb-1 md:pr-48 pr-12 mr-4" placeholder="Email Address..." required/><a href="https://www.linkedin.com/in/moiz-qureshi-0884592b9" target="blank" className="border-b-2 pb-2 px-2 border-slate-600">SUBMIT</a></p>
-                    <h1 className="text-4xl font-semibold my-14 mx-5">Follow Products And Discound On Instagram</h1>
-                    <div className="flex flex-col md:flex-row gap-5 mx-28">
-                    {CMSInsta.map((insta) => (
-                    <div key={insta._id}>
-                    <Link href={`/posts/${insta._id}`}>
-                    <img src={urlFor(insta.imageURL).url()} alt={insta.title} className=" md:w-36 w-60 rounded-lg transition-transform transform hover:scale-105"/>
-                    </Link>
-                    </div>
-                    ))}
-                    </div>
-                </div>
-            </div>
     </div>
   );
 }

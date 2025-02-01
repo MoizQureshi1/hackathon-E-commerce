@@ -1,65 +1,95 @@
-import Image from "next/image"
-import orangechair from "../../../public/images/orangechair.png"
-import foot3chair from "../../../public/images/foot3chair.png"
-import { FaRegHeart } from "react-icons/fa"
-import { AiOutlineDelete } from "react-icons/ai"
-import Link from "next/link"
+import { BsTelephoneFill } from "react-icons/bs";
+import { FaClock, FaHeadset } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
+import { GoVerified } from "react-icons/go";
+import { IoTrophy } from "react-icons/io5";
 
 export default function ShopPage(){
     return(
-        <>
+       <>
+         <>
         <div className="max-w-screen-2xl mx-auto">
-            <div className="md:flex justify-center my-20">
-                <div className="md:mx-24 text-center sm:text-left">
-                    <h3 className="font-bold text-xl text-center md:text-left mb-10">Bag</h3>
+            <div>
+                <div className="text-center">
+                    <h2 className="font-bold text-3xl my-3 mt-20">Get In Touch With Us</h2>
+                    <p className="font-bold text-slate-400">For More Information About Our Products & Services. Please Feel Free To Drop Us <br /> An Email. Our Staff Always Be There To Help You Out Do Not Hositate!</p>
+                </div>
+                <div className="flex flex-col md:flex-row justify-center gap-44 my-20">
                     <div>
-                        <Link href="orangeChairItem">
-                        <div className="sm:flex font-bold transition-transform transform hover:scale-105">
-                            <div className="flex justify-center md:justify-start">
-                            <Image src={orangechair} alt="Orange Chair" width={180}/>
-                            </div>
-                            <div className="md:ml-5">
-                                <h3 className="text-slate-700 mb-8 mt-2">Library Stool Chair</h3>
-                                <span className="text-slate-400">
-                                    <p className="mb-2">Ashen Slate / Cobalt Bliss</p>
-                                    <p className=""><span>Size L</span> <span className="sm:ml-12">Quuantity 1</span></p>
-                                </span>
-                                <p className="flex justify-center md:justify-start text-black text-2xl gap-4 mt-8 mb-3"><FaRegHeart /> <AiOutlineDelete /></p>
-                            </div>
-                            <span className="mt-4 md:ml-52 ml-4">MRP: $99</span>
+                        <div className="flex justify-center mt-2">
+                            <FaLocationDot className="text-2xl mr-6"/>
+                            <span>
+                                <h2 className="font-semibold text-2xl">Address</h2>
+                                <p className="text-black font-medium">236 5th SE Avenue, New <br /> York NY10000, United <br />State</p>
+                            </span>
                         </div>
-                        </Link>
-                        <hr className="my-10 "/>
-                        <Link href="styleChairItem">
-                        <div className="sm:flex font-bold transition-transform transform hover:scale-105">
-                            <div className="flex justify-center md:justify-start">
-                            <Image src={foot3chair} alt="3 Foot Chair" width={180}/>
-                            </div>
-                            <div className="md:ml-5">
-                                <h3 className="text-slate-700 mb-8 mt-2">Library Stool Chair</h3>
-                                <span className="text-slate-400">
-                                    <p className="mb-2">Ashen Slate / Cobalt Bliss</p>
-                                    <p className=""><span>Size L</span> <span className="sm:ml-12">Quuantity 1</span></p>
-                                </span>
-                                <p className="flex justify-center md:justify-start text-black text-2xl gap-4 mt-8 mb-3"><FaRegHeart /> <AiOutlineDelete /></p>
-                            </div>
-                            <span className="mt-4 md:ml-52 ml-4">MRP: $99</span>
+                        <div className="flex justify-center mt-8">
+                            <BsTelephoneFill className="text-2xl mr-6"/>
+                            <span>
+                                <h2 className="font-semibold text-2xl">Phone</h2>
+                                <p className="text-black font-medium">Mobile: +(84) 546-6789</p>
+                                <p className="text-black font-medium">Hotline: +(84) 546-6789</p>
+                            </span>
                         </div>
-                        </Link>
-                        <hr className="mt-10"/>
+                        <div className="flex justify-center mt-9">
+                            <FaClock className="text-2xl mr-6"/>
+                            <span>
+                                <h2 className="font-semibold text-2xl">Working Time</h2>
+                                <p className="text-black font-medium">Monday-Friday 9:00- <br />22:00</p>
+                                <p className="text-black font-medium">Satureday-Sunday 9:00- <br />21:00</p>
+                            </span>
+                        </div>
+                    </div>
+                    <div>
+                        <form className="mx-20 md:mx-0">
+                            <div className="flex justify-center flex-col">
+                                <label className="text-black font-semibold mt-2">Full Name</label>
+                                <input type="text" placeholder="Your Full Name" required className="border-2 py-4 pr-36 pl-8 rounded-lg mt-3"/>
+                            </div>
+                            <div className="flex justify-center flex-col">
+                                <label className="text-black font-semibold mt-10">Email Address</label>
+                                <input type="text" placeholder="ABCExample@gmail.com" required className="border-2 py-4 pr-36 pl-8 rounded-lg mt-3"/>
+                            </div>
+                            <div className="flex justify-center flex-col">
+                                <label className="text-black font-semibold mt-10">Subject</label>
+                                <input type="text" placeholder="This is an Optional" className="border-2 py-4 pr-36 pl-8 rounded-lg mt-3"/>
+                            </div>
+                            <div className="flex justify-center flex-col">
+                                <label className="text-black font-semibold mt-10">Message</label>
+                                <textarea className="py-4 border-2 rounded-lg mt-3 pl-8 pb-6" required placeholder="Hi! Id like to ask About"></textarea>
+                            </div>
+                            <div className="flex justify-center md:justify-start mt-4 md:mt-0">
+                            <button className="border-2 rounded-xl mt-5 py-3 px-20 bg-[#029FAE] text-white transition-transform transform hover:scale-105">Submit</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div>
-                    <div className="mt-24 md:ml-20 mx-10">
-                        <h3 className="text-xl font-bold mb-7">Summary</h3>
-                        <p className="flex justify-between mb-3"><span>Subtotal</span> <span className="font-bold">$198.00</span></p>
-                        <p className="flex justify-between"><span className="mr-6">Estimated Delivery and Handling</span> <span>Free</span></p>
-                        <p className="border-t-2 border-b-2 py-3 flex justify-between"><span>Total</span> <span className="font-bold">$198.00</span></p>
-                        <button className="border-2 md:px-20 px-10 py-3 rounded-full mt-6 bg-cyan-600 transition-transform transform hover:scale-105">Member Checkout</button>
-                    </div>
+            </div>
+            <div className="flex flex-col md:flex-row justify-center gap-24 bg-gray-100 text-gray-900 mx-8 sm:mx-40 md:mx-16 lg:mx-32 py-24">
+                <div className="flex justify-center">
+                    <IoTrophy className="text-5xl mr-4"/>
+                    <span>
+                        <h3 className="text-xl font-bold">High Quality</h3>
+                        <p className="text-gray-600 font-semibold">Crafted from Top Materials</p>
+                    </span>
+                </div>
+                <div className="flex justify-center mr-3 md:mr-0">
+                    <GoVerified className="text-5xl mr-4"/>
+                    <span>
+                        <h3 className="text-xl font-bold">Warranty Protection</h3>
+                        <p className="text-gray-600 font-semibold">Over 2 Year</p>
+                    </span>
+                </div>
+                <div className="flex justify-center mr-12 md:mr-0">
+                   <FaHeadset className="text-5xl mr-4"/>
+                    <span>
+                        <h3 className="text-xl font-bold">24/7 Support</h3>
+                        <p className="text-gray-600 font-semibold">Dadicated Support</p>
+                    </span>
                 </div>
             </div>
         </div>
         </>
+       </>
     )
 }

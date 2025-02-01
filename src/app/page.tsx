@@ -1,8 +1,9 @@
-import CashAccount from "./component/cashAcu";
-import Category from "./component/category";
-import Featured from "./component/featured";
-import Hero from "./component/Hero";
-import Products from "./component/products";
+import Gallery from "@/components/gallery";
+import CashAccount from "../components/cashAcu";
+import Category from "../components/category";
+import Featured from "../components/featured";
+import Products from "../components/products";
+import Hero from "@/components/Hero";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
     <CashAccount/>
     <Featured/>
     <Category/>
+    <Gallery/>
     <Products/>
     </div>
     </>
