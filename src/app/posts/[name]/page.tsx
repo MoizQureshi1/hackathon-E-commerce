@@ -2,11 +2,15 @@ import { client } from "@/sanity/lib/client"; // Sanity client to fetch data
 import { Product } from "@/types"; // Assuming you have a Product type defined
 import { LuShoppingCart } from "react-icons/lu"; // Cart icon for the Add to Cart button
 import Image from "next/image";
-import type { NextPage } from "next"
 
+type ProductPageProps = {
+  params: {
+    name: string;
+  };
+};
 
 // This is the product page component
-const ProductPage: NextPage<{ params: { name: string } }> = async ({ params }) => {
+const ProductPage = async ({ params }: ProductPageProps) => {
   const { name } = params; // Extract the 'name' parameter from the URL
 
   // Fetch the product data from Sanity using 'name' as the product ID
@@ -23,14 +27,14 @@ const ProductPage: NextPage<{ params: { name: string } }> = async ({ params }) =
       tags,
     }
   `, { id: name });
-  
+
   console.log(posts);
-  
+
   // If no product is found, show a "Product Not Found" message
   if (!posts || posts.length === 0) {
     return <h2 className="text-2xl font-bold text-center mt-10">Product Not Found</h2>;
   }
-  
+
   const product = posts[0]; // Now you have the first product in the array
 
   return (
@@ -61,7 +65,6 @@ const ProductPage: NextPage<{ params: { name: string } }> = async ({ params }) =
 
 export default ProductPage;
 
-// Static params generation for pre-building the pages
 export async function generateStaticParams() {
   const products = await client.fetch(`
     *[_type == "products"] {
@@ -69,10 +72,10 @@ export async function generateStaticParams() {
     }
   `);
 
-  console.log(products);
-  
-  // Generate static paths for each product (_id used as the dynamic route 'name')
+  console.log(products); // Debugging to see fetched products
+
+  // Ensure products contain _id field and return it in the correct format
   return products.map((product) => ({
-    name: product._id, // Use the product _id to generate dynamic route
+    name: product._id,
   }));
 }
