@@ -1,47 +1,40 @@
 import Link from "next/link";
+import { client } from "@/sanity/lib/client";
 import Image from "next/image";
 
+interface Product {
+  _id: string;
+  title: string;
+  price: string;
+  priceWithoutDiscount: string;
+  badge: string;
+  image_url: string;
+  category: { _id: string; title: string };
+  description: string;
+  inventory: number;
+  tags: string[];
+}
 
-export default function InCard (){
+export default async function InCard() {
+  const CMSItem: Product[] = await client.fetch(`
+     *[_type == "products" && "featured" in tags][0..4] {
+      _id,
+      title,
+      price,
+      priceWithoutDiscount,
+      badge,
+      "image_url": image.asset->url,
+      category->{
+        _id,
+        title
+      },
+      description,
+      inventory,
+      tags,
+    }
+  `);
 
-
-    const posts = [
-        {
-            name: "plastic-chair",
-            title: "Library Stool Chair",
-            price: "$99",
-            alt: "Plastic Chair",
-            imageURL: "/images/sleepchair.png",
-        },
-        {
-            name: "white-chair",
-            title: "Library Stool Chair",
-            price: "$99",
-            alt: "White Chair",
-            imageURL: "/images/whitechair2.png",
-        },
-        {
-            name: "desk-chair",
-            title: "Library Stool Chair",
-            price: "$99",
-            alt: "Desk Chaird",
-            imageURL: "/images/onestandchair.png",
-        },
-        {
-            name: "orange-chair",
-            title: "Library Stool Chair",
-            price: "$99",
-            alt: "Orange Chair",
-            imageURL: "/images/orangechair.png",
-        },
-        {
-            name: "wing-chair",
-            title: "Library Stool Chair",
-            price: "$99",
-            alt: "Winger Chair",
-            imageURL: "/images/wingerchair.png",
-        },
-    ]
+  console.log(CMSItem);
 
 return(
     <>
@@ -51,14 +44,14 @@ return(
               <button className="border-b-2 mb-7 mt-3 border-black font-bold">View all</button>
             </div>
             <div className="flex flex-col md:flex-row justify-around gap-11 lg:mx-36 md:mx-16 mb-24">
-                {posts.map((post) => (
-                <div key={post.name}>
+                {CMSItem.map((feature) => (
+                <div key={feature._id}>
               <div className="flex justify-center transition-transform transform hover:scale-105">
-                <Link href={`/posts/${post.name}`}>
-                  <Image src={post.imageURL} alt={post.alt} width={180} height={500} className="rounded-t-lg"/>
+              <Link href={`/posts/${feature._id}`}>
+                  <Image src={feature.image_url} alt={feature.title} width={180} height={500} className="rounded-t-lg"/>
                     <div className="flex justify-between">
-                      <p className="pt-2 text-md font-semibold text-slate-500 mt-0.5">{post.title}</p>
-                      <p className="text-black-400 pt-2 font-semibold text-lg">{post.price}</p>
+                      <p className="pt-2 text-md font-semibold text-slate-500 mt-0.5">{feature.title}</p>
+                      <p className="text-black-400 pt-2 font-semibold text-lg">{feature.price}</p>
                     </div>
                 </Link>
               </div>
