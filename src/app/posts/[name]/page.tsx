@@ -2,10 +2,11 @@ import { client } from "@/sanity/lib/client"; // Sanity client to fetch data
 import { Product } from "@/types"; // Assuming you have a Product type defined
 import { LuShoppingCart } from "react-icons/lu"; // Cart icon for the Add to Cart button
 import Image from "next/image";
+import type { NextPage } from "next"
 
 
 // This is the product page component
-const ProductPage = async ({ params }: { params: { name: string } }) => {
+const ProductPage: NextPage<{ params: { name: string } }> = async ({ params }) => {
   const { name } = params; // Extract the 'name' parameter from the URL
 
   // Fetch the product data from Sanity using 'name' as the product ID
