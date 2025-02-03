@@ -1,5 +1,4 @@
 import { client } from "@/sanity/lib/client";
-import { urlFor } from "@/sanity/lib/image"; // Import urlFor function
 import text from "../../public/images/text.png"
 import Link from "next/link";
 import Image from "next/image";
@@ -10,7 +9,7 @@ interface Product {
   price: string;
   priceWithoutDiscount: string;
   badge: string;
-  imageURL: string;
+  image_url: string;
   category: { _id: string; title: string };
   description: string;
   inventory: number;
@@ -25,7 +24,7 @@ export default async function Gallery() {
       price,
       priceWithoutDiscount,
       badge,
-      "imageURL": image.asset->url,
+      "image_url": image.asset->url,
       category->{
         _id,
         title
@@ -46,8 +45,8 @@ export default async function Gallery() {
         <Image src={text} alt="text" width={40}/>
           {CMSGellery[0] && (
             <Link href={`/posts/${CMSGellery[0]._id}`}>
-                <img
-                  src={urlFor(CMSGellery[0].imageURL).url()}
+                <Image
+                  src={CMSGellery[0].image_url}
                   alt={CMSGellery[0].title}
                   height={500}
                   width={500}
@@ -62,8 +61,8 @@ export default async function Gallery() {
           {CMSGellery.slice(1, 5).map((feature,) => (
             <div key={feature._id}>
               <Link href={`/posts/${feature._id}`}>
-                  <img
-                    src={urlFor(feature.imageURL).url()}
+                  <Image
+                    src={feature.image_url}
                     alt={feature.title}
                     width={240}
                     height={240}

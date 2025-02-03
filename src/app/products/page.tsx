@@ -1,7 +1,7 @@
 import { LuShoppingCart } from "react-icons/lu";
 import Link from "next/link";
 import { client } from "@/sanity/lib/client";
-import { urlFor } from "@/sanity/lib/image";
+import Image from "next/image";
 
 interface Product {
   _id: string;
@@ -9,7 +9,7 @@ interface Product {
   price: string;
   priceWithoutDiscount: string;
   badge: string;
-  imageURL: string;
+  image_url: string;
   category: { _id: string; title: string };
   description: string;
   inventory: number;
@@ -25,7 +25,7 @@ export default async function Products() {
       price,
       priceWithoutDiscount,
       badge,
-      "imageURL": image.asset->url,
+      "image_url": image.asset->url,
       category->{
         _id,
         title
@@ -42,7 +42,7 @@ export default async function Products() {
       price,
       priceWithoutDiscount,
       badge,
-      "imageURL": image.asset->url,
+      "image_url": image.asset->url,
       category->{
         _id,
         title
@@ -69,8 +69,8 @@ export default async function Products() {
               <Link href={`/posts/${feature._id}`}>
                 <div className="relative">
                   {/* Ensure you provide appropriate width and height for the Image component */}
-                  <img
-                    src={urlFor(feature.imageURL).url()}
+                  <Image
+                    src={feature.image_url}
                     alt={feature.title}
                     width={230}
                     height={400} // Adjust height based on the aspect ratio you prefer
@@ -149,7 +149,7 @@ export default async function Products() {
                     {CMSInsta.map((insta) => (
                     <div key={insta._id}>
                     <Link href={`/posts/${insta._id}`}>
-                    <img src={urlFor(insta.imageURL).url()} alt={insta.title} className=" md:w-36 w-60 rounded-lg transition-transform transform hover:scale-105"/>
+                    <Image src={insta.image_url} alt={insta.title} width={230} height={400} className=" rounded-lg transition-transform transform hover:scale-105"/>
                     </Link>
                     </div>
                     ))}

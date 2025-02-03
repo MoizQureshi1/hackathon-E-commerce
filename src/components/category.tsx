@@ -1,20 +1,11 @@
 import { client } from "@/sanity/lib/client";
-import { urlFor } from "@/sanity/lib/image"; // Import urlFor function
+import Image from "next/image";
 import Link from "next/link";
-
-// Define the image type
-interface ImageAsset {
-  _type: "image";
-  asset: {
-    _ref: string;
-    _type: "reference";
-  };
-}
 
 interface Categories {
   _id: string;
   title: string;
-  image: ImageAsset; // Image field is an object (of type ImageAsset)
+  image_url: string; // Image field is an object (of type ImageAsset)
   products: number;
 }
 
@@ -24,7 +15,7 @@ export default async function Category() {
     *[_type == "categories"]{
         _id,
         title,
-        image,
+         "image_url": image.asset->url,
         products
       }
   `);
@@ -35,7 +26,7 @@ export default async function Category() {
       price,
       priceWithoutDiscount,
       badge,
-      "imageURL": image.asset->url,
+       "image_url": image.asset->url,
       category->{
         _id,
         title
@@ -61,8 +52,8 @@ export default async function Category() {
           {CMSCategory.map((category) => (
             <div className="flex justify-center relative transition-transform transform hover:scale-105" key={category._id}>
               {/* Display image directly */}
-              <img
-                src={urlFor(category.image).url()} // Use urlFor to get the image URL
+              <Image
+                src={category.image_url} // Use urlFor to get the image URL
                 alt={category.title}
                 className="w-80 h-80 rounded-lg object-cover "
                 width={320} // Set the width and height manually

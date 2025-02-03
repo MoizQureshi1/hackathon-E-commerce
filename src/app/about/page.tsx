@@ -5,35 +5,43 @@ import { SiTicktick } from "react-icons/si";
 import { LiaEnvelopeSolid } from "react-icons/lia";
 import { PiFlowerTulip } from "react-icons/pi";
 import Link from "next/link";
+import { client } from "@/sanity/lib/client";
 
-interface Aboutpage {
-    post: {name: string; title: string; price: string; alt: string; imageURL: string;}
+interface Product {
+    _id: string;
+    title: string;
+    price: string;
+    priceWithoutDiscount: string;
+    badge: string;
+    image_url: string;
+    category: { _id: string; title: string };
+    description: string;
+    inventory: number;
+    tags: string[];
   }
 
-export default function Aboutpage (){
+export default async function Aboutpage (){
 
 
-   const posts = [{
-        name: "green-sofa",
-        title: "The Popular Suede Sofa",
-        price: "$20.00",
-        alt: "Big Green Sofa",
-        imageURL: "/images/bigsofa.png",
-    },
-    {
-        name: "winger-chair",
-        title: "The Dandy Chair",
-        price: "$20.00",
-        alt: "Black Ckair",
-        imageURL: "/images/black3chair.png",
-    },
-    {
-        name: "black-chair",
-        title: "The Dandy Chair",
-        price: "$20.00",
-        alt: "Black Chair",
-        imageURL: "/images/blackchair.png",
-    }]
+   const CMSAbout: Product[] = await client.fetch(`
+        *[_type == "products" && "about" in tags] {
+         _id,
+         title,
+         price,
+         priceWithoutDiscount,
+         badge,
+         "image_url": image.asset->url,
+         category->{
+           _id,
+           title
+         },
+         description,
+         inventory,
+         tags,
+       }
+     `);
+
+     console.log(CMSAbout);
 
 
     return(
@@ -77,13 +85,13 @@ export default function Aboutpage (){
             <div className="mx-10">
                 <h2 className="text-3xl text-center md:text-left font-semibold sm:ml-20 lg:ml-32 my-8 pt-20 text-[#272343]">Our Popular Products</h2>
                 <div className="flex flex-col md:flex-row justify-center gap-5 mb-32 mx-28">
-                    {posts.map((post) => (
-                        <div key={post.name}>
-                    <Link href={`/hero/${post.name}`} className="flex justify-center">
+                    {CMSAbout.map((feature) => (
+                        <div key={feature._id}>
+                    <Link href={`/posts/${feature._id}`} className="flex justify-center">
                     <div className="transition-transform transform hover:scale-105 text-[#2A254B]">
-                        <Image src={post.imageURL} alt={post.alt} width={500} height={500} className="w-full h-auto object-cover"/>
-                        <p className="mt-5 text-slate-600">{post.title}</p>
-                        <span className="mt-5 text-slate-600">{post.price}</span>
+                        <Image src={feature.image_url} alt={feature.title} width={500} height={500} className="w-full h-auto object-cover"/>
+                        <p className="mt-5 text-slate-600">{feature.title}</p>
+                        <span className="mt-5 text-slate-600">${feature.price}.00</span>
                     </div>
                     </Link>
                     </div>
