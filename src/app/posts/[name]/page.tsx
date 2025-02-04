@@ -37,7 +37,7 @@ const CMSItem: Product[] = await client.fetch(`
     }
   `);
 
-console.log(CMSItem);
+  console.log(CMSItem)
 
 // Component to display product details
 const ProductPage = ({ product }: { product: Product }) => {
@@ -135,20 +135,21 @@ const getProductData = async (id: string) => {
 };
 
 // Dynamic Route Handler
-const ProductPageWrapper = ({ params }: { params: { name: string } }) => {
+const ProductPageWrapper = ({ params }: { params: Promise<{ name: string }> }) => {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Since params are now a Promise, we need to unwrap them using use()
+    // Access the params after unwrapping the promise
     const fetchProduct = async () => {
-      const productData = await getProductData(params.name);
+      const resolvedParams = await params; // Unwrap the promise
+      const productData = await getProductData(resolvedParams.name); // Get product data using resolved name
       setProduct(productData);
       setLoading(false);
     };
 
     fetchProduct();
-  }, [params.name]);
+  }, [params]);
 
   if (loading) return <p className="text-3xl text-center font-extrabold my-52">Loading...</p>;
 
