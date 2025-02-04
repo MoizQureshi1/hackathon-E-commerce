@@ -37,7 +37,7 @@ const CMSItem: Product[] = await client.fetch(`
     }
   `);
 
-  console.log(CMSItem);
+console.log(CMSItem);
 
 // Component to display product details
 const ProductPage = ({ product }: { product: Product }) => {
@@ -140,6 +140,7 @@ const ProductPageWrapper = ({ params }: { params: { name: string } }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Since params are now a Promise, we need to unwrap them using use()
     const fetchProduct = async () => {
       const productData = await getProductData(params.name);
       setProduct(productData);
