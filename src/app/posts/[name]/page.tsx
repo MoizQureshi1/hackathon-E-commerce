@@ -4,7 +4,7 @@ import { client } from "@/sanity/lib/client"; // Sanity client to fetch data
 import { LuShoppingCart } from "react-icons/lu"; // Cart icon for the Add to Cart button
 import Image from "next/image";
 import { useRouter } from "next/navigation"; // Use next/navigation to use `router.push`
-
+import Link from "next/link";
 
 interface Product {
   _id: string;
@@ -18,9 +18,30 @@ interface Product {
   inventory: number;
   tags: string[];
 }
+
+const CMSItem: Product[] = await client.fetch(`
+     *[_type == "products" && "featured" in tags][0..4] {
+      _id,
+      title,
+      price,
+      priceWithoutDiscount,
+      badge,
+      "image_url": image.asset->url,
+      category->{
+        _id,
+        title
+      },
+      description,
+      inventory,
+      tags,
+    }
+  `);
+
+  console.log(CMSItem);
+
 // Component to display product details
 const ProductPage = ({ product }: { product: Product }) => {
-  const [cart, setCart] = useState<Product[]>([]);
+  const [, setCart] = useState<Product[]>([]); // Use the state for cart
   const router = useRouter();
 
   // Handle Add to Cart
@@ -69,6 +90,25 @@ const ProductPage = ({ product }: { product: Product }) => {
           </button>
         </div>
       </div>
+      <div className="flex justify-center md:justify-around mr-14 sm:mr-0 gap-4 sm:gap-14 lg:gap-96 lg:mr-40">
+              <h2 className="text-2xl font-bold text-center md:text-left md:ml-10">FEATURED PRODUCTS</h2>
+              <button className="border-b-2 mb-7 mt-3 border-black font-bold">View all</button>
+            </div>
+            <div className="flex flex-col md:flex-row justify-around gap-11 lg:mx-36 md:mx-16 mb-24">
+                {CMSItem.map((feature) => (
+                <div key={feature._id}>
+              <div className="flex justify-center transition-transform transform hover:scale-105">
+              <Link href={`/posts/${feature._id}`}>
+                  <Image src={feature.image_url} alt={feature.title} width={180} height={500} className="rounded-t-lg"/>
+                    <div className="flex justify-between">
+                      <p className="pt-2 text-md font-semibold text-slate-500 mt-0.5">{feature.title}</p>
+                      <p className="text-black-400 pt-2 font-semibold text-lg">${feature.price}</p>
+                    </div>
+                </Link>
+              </div>
+              </div>
+                ))}
+            </div>  
     </div>
     </>
   );
