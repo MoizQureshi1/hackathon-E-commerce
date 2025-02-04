@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useState, useEffect } from "react";
 import { client } from "@/sanity/lib/client"; // Sanity client to fetch data
 import { LuShoppingCart } from "react-icons/lu"; // Cart icon for the Add to Cart button
@@ -20,7 +20,7 @@ interface Product {
 }
 
 const CMSItem: Product[] = await client.fetch(`
-     *[_type == "products" && "featured" in tags][0..4] {
+     *[_type == "products" && "featured" in tags][0..3] {
       _id,
       title,
       price,
@@ -66,50 +66,50 @@ const ProductPage = ({ product }: { product: Product }) => {
 
   return (
     <>
-    <div className="max-w-screen-2xl mx-auto">
-      <div className="flex flex-col md:flex-row justify-center my-28 mx-20 md:mx-36">
-        {product.image_url && (
-          <Image
-            src={product.image_url}
-            alt={product.title}
-            width={1000}
-            height={500}
-            className="rounded-lg"
-          />
-        )}
-        <div className="md:ml-14 mt-2">
-          <h2 className="text-indigo-950 text-4xl font-bold lg:mr-64">{product.title}</h2>
-          <p className="bg-cyan-600 p-1 rounded-2xl sm:mr-72 lg:mr-96 text-center text-white mt-4">${product.price}.00 USD</p>
-          <p className="border-t-2 mt-7 pt-8 lg:mr-40 text-slate-400">{product.description}</p>
-          <button 
-            onClick={() => addToCart(product)} 
-            className="flex p-3 px-3 bg-cyan-600 text-white my-6 rounded-md transition-transform transform hover:scale-105"
-          >
-            <LuShoppingCart className="mr-1 text-xl" />
-            Add to Cart
-          </button>
+      <div className="max-w-screen-2xl mx-auto">
+        <div className="flex flex-col md:flex-row justify-center my-28 mx-20 md:mx-36">
+          {product.image_url && (
+            <Image
+              src={product.image_url}
+              alt={product.title}
+              width={1000}
+              height={500}
+              className="rounded-lg"
+            />
+          )}
+          <div className="md:ml-14 mt-2">
+            <h2 className="text-indigo-950 text-4xl font-bold lg:mr-64">{product.title}</h2>
+            <p className="bg-cyan-600 p-1 rounded-2xl sm:mr-72 lg:mr-96 text-center text-white mt-4">${product.price}.00 USD</p>
+            <p className="border-t-2 mt-7 pt-8 lg:mr-40 text-slate-400">{product.description}</p>
+            <button 
+              onClick={() => addToCart(product)} 
+              className="flex p-3 px-3 bg-cyan-600 text-white my-6 rounded-md transition-transform transform hover:scale-105"
+            >
+              <LuShoppingCart className="mr-1 text-xl" />
+              Add to Cart
+            </button>
+          </div>
         </div>
-      </div>
-      <div className="flex justify-center md:justify-around mr-14 sm:mr-0 gap-4 sm:gap-14 lg:gap-96 lg:mr-40">
-              <h2 className="text-2xl font-bold text-center md:text-left md:ml-10">FEATURED PRODUCTS</h2>
-              <button className="border-b-2 mb-7 mt-3 border-black font-bold">View all</button>
-            </div>
-            <div className="flex flex-col md:flex-row justify-around gap-11 lg:mx-36 md:mx-16 mb-24">
-                {CMSItem.map((feature) => (
-                <div key={feature._id}>
+        <div className="flex justify-center md:justify-around mr-14 sm:mr-0 gap-4 sm:gap-14 lg:gap-96 lg:mr-40">
+          <h2 className="text-2xl font-bold text-center md:text-left md:ml-10">FEATURED PRODUCTS</h2>
+          <button className="border-b-2 mb-7 mt-3 border-black font-bold">View all</button>
+        </div>
+        <div className="flex flex-col md:flex-row justify-around gap-11 lg:mx-36 md:mx-16 mb-24">
+          {CMSItem.map((feature) => (
+            <div key={feature._id}>
               <div className="flex justify-center transition-transform transform hover:scale-105">
-              <Link href={`/posts/${feature._id}`}>
+                <Link href={`/posts/${feature._id}`}>
                   <Image src={feature.image_url} alt={feature.title} width={180} height={500} className="rounded-t-lg"/>
-                    <div className="flex justify-between">
-                      <p className="pt-2 text-md font-semibold text-slate-500 mt-0.5">{feature.title}</p>
-                      <p className="text-black-400 pt-2 font-semibold text-lg">${feature.price}</p>
-                    </div>
+                  <div className="flex justify-between">
+                    <p className="pt-2 text-md font-semibold text-slate-500 mt-0.5">{feature.title}</p>
+                    <p className="text-black-400 pt-2 font-semibold text-lg">${feature.price}</p>
+                  </div>
                 </Link>
               </div>
-              </div>
-                ))}
-            </div>  
-    </div>
+            </div>
+          ))}
+        </div>  
+      </div>
     </>
   );
 };
