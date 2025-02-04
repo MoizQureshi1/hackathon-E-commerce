@@ -20,7 +20,7 @@ interface Product {
 }
 
 const CMSItem: Product[] = await client.fetch(`
-     *[_type == "products" && "featured" in tags][0..3] {
+     *[_type == "products" && "featured" in tags][0..4] {
       _id,
       title,
       price,
