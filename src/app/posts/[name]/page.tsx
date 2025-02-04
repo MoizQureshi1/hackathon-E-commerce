@@ -1,11 +1,23 @@
 'use client'
 import { useState, useEffect } from "react";
 import { client } from "@/sanity/lib/client"; // Sanity client to fetch data
-import { Product } from "@/types"; // Assuming you have a Product type defined
 import { LuShoppingCart } from "react-icons/lu"; // Cart icon for the Add to Cart button
 import Image from "next/image";
 import { useRouter } from "next/navigation"; // Use next/navigation to use `router.push`
 
+
+interface Product {
+  _id: string;
+  title: string;
+  price: string;
+  priceWithoutDiscount: string;
+  badge: string;
+  image_url: string;
+  category: { _id: string; title: string };
+  description: string;
+  inventory: number;
+  tags: string[];
+}
 // Component to display product details
 const ProductPage = ({ product }: { product: Product }) => {
   const [cart, setCart] = useState<Product[]>([]);

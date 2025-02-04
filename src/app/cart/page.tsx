@@ -4,7 +4,19 @@ import Image from "next/image";
 import { FaRegHeart } from "react-icons/fa";
 import { AiOutlineDelete } from "react-icons/ai";
 import Link from "next/link";
-import { Product } from "@/types"; // Assuming you have a Product type defined
+
+interface Product {
+    _id: string;
+    title: string;
+    price: number;
+    priceWithoutDiscount: string;
+    badge: string;
+    image_url: string;
+    category: { _id: string; title: string };
+    description: string;
+    inventory: number;
+    tags: string[];
+  }
 
 export default function CartPage() {
   const [cart, setCart] = useState<Product[]>([]);
@@ -66,7 +78,6 @@ export default function CartPage() {
                         <span className="text-slate-400">
                           <p className="mb-2">Ashen Slate/Cobalt Bliss</p>
                           <p className="">
-                            <span>{post.size}</span>
                             <span className="sm:ml-12 md:ml-0">Quantity 1</span>
                           </p>
                         </span>
