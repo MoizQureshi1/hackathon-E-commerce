@@ -149,7 +149,7 @@ export default async function Products() {
                     {CMSInsta.map((insta) => (
                     <div key={insta._id}>
                     <Link href={`/posts/${insta._id}`}>
-                    <Image src={insta.image_url} alt={insta.title} width={230} height={400} className=" rounded-lg transition-transform transform hover:scale-105"/>
+                    <Image src={insta.image_url} alt={insta.title} width={150} height={200} className=" rounded-lg transition-transform transform hover:scale-105"/>
                     </Link>
                     </div>
                     ))}

@@ -2,7 +2,6 @@ import Link from "next/link";
 import { BiErrorCircle } from "react-icons/bi";
 import { GiSofa } from "react-icons/gi";
 import { LuShoppingCart } from "react-icons/lu";
-import { PiNumberCircleTwoFill } from "react-icons/pi";
 import { TiTick } from "react-icons/ti";
 import {
     Sheet,
@@ -11,7 +10,6 @@ import {
   } from "@/components/ui/sheet"
 import { HiOutlineBars3CenterLeft } from "react-icons/hi2";
 import { client } from "@/sanity/lib/client";
-
 
 export default async function Navbar (){
     
@@ -45,7 +43,7 @@ export default async function Navbar (){
             </div>
             <div className="flex justify-around bg-[#F0F2F3]">
                 <h2 className="flex md:mr-48 text-[#272343] text-3xl font-medium my-3"><GiSofa className="text-[#029FAE] text-5xl mr-1"/><span className="mt-2">{CMSHeader.heading}</span></h2>
-                <Link href="cart" className="flex md:ml-40 bg-[#FFFFFF] rounded-xl text-[#272343] font-medium py-3 px-5 my-3 transition-transform transform hover:scale-105"><LuShoppingCart className="mr-2 text-xl"/>Cart<PiNumberCircleTwoFill className="text-xl ml-2 text-[#007580]"/></Link>
+                <Link href="cart" className="flex md:ml-40 bg-[#FFFFFF] rounded-xl text-[#272343] font-medium py-3 px-5 my-3 transition-transform transform hover:scale-105"><LuShoppingCart className="mr-2 text-xl"/>Cart</Link>
             </div>
             <div className="flex justify-around text-[#636270] font-semibold lg:gap-36 sm:mt-6 bg-[#FFFFFF]">
                 <div className="hidden sm:block">
