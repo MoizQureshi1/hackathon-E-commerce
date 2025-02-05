@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import { LuShoppingCart } from "react-icons/lu";
 import Link from "next/link";
 import { client } from "@/sanity/lib/client";
@@ -16,27 +19,51 @@ interface Product {
   tags: string[];
 }
 
-export default async function Featured() {
-  // Fetch the featured products from the Sanity CMS
-  const CMSFeatured: Product[] = await client.fetch(`
-    *[_type == "products" && "featured" in tags][0..7] {
-      _id,
-      title,
-      price,
-      priceWithoutDiscount,
-      badge,
-      "image_url": image.asset->url,
-      category->{
-        _id,
-        title
-      },
-      description,
-      inventory,
-      tags,
-    }
-  `);
-
-  console.log(CMSFeatured);
+export default  function Featured() {
+  const [CMSFeatured, setCMSFeatured] = useState<Product[]>([]);
+ // Fetch the featured products from the Sanity CMS
+   useEffect(() => {
+     const fetchFeaturedProducts = async () => {
+       const products: Product[] = await client.fetch(
+         `*[_type == "products" && "featured" in tags][0..7] {
+           _id,
+           title,
+           price,
+           priceWithoutDiscount,
+           badge,
+           "image_url": image.asset->url,
+           category->{
+             _id,
+             title
+           },
+           description,
+           inventory,
+           tags,
+         }`
+        );
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+       setCMSFeatured(products);
+      };
+      
+      fetchFeaturedProducts();
+   }, []);
+ 
+   // Add product to cart function
+   const addToCart = (product: Product) => {
+     if (typeof window !== "undefined") {
+       // Ensure we're on the client-side
+       const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+ 
+       // Add the product to the cart
+       cart.push(product);
+ 
+       // Save it back to localStorage
+       localStorage.setItem("cart", JSON.stringify(cart));
+ 
+       // Redirect to the cart page using window.location
+       window.location.href = "/cart"; // Redirect to cart page
+     }
+   };
 
   return (
     <div className="max-w-screen-2xl mx-auto">
@@ -113,9 +140,12 @@ export default async function Featured() {
                       )}
                     </span>
                   </span>
-                  <span className="p-1 my-4 mb-3 bg-gray-200 hover:bg-[#029FAE] rounded-md">
+                  <button
+                    onClick={() => addToCart(feature)} // Add to cart on button click
+                    className="p-1 my-4 mb-3 bg-gray-200 hover:bg-[#029FAE] rounded-md"
+                  >
                     <LuShoppingCart className="text-4xl pt-2 pb-2" />
-                  </span>
+                  </button>
                 </div>
               </Link>
             </div>

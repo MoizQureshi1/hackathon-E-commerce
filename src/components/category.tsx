@@ -36,6 +36,7 @@ export default async function Category() {
       tags,
     }
   `);
+  await new Promise((resolve) => setTimeout(resolve, 4000));
 
   // Log categories to check the fetched data
   console.log(CMSCategory);

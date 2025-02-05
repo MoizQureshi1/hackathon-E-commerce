@@ -34,6 +34,7 @@ export default async function Gallery() {
       tags,
     }
   `);
+  await new Promise((resolve) => setTimeout(resolve, 5000));
 
   console.log(CMSGellery);
 

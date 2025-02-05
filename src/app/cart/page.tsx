@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { FaRegHeart } from "react-icons/fa";
@@ -6,17 +6,17 @@ import { AiOutlineDelete } from "react-icons/ai";
 import Link from "next/link";
 
 interface Product {
-    _id: string;
-    title: string;
-    price: number;
-    priceWithoutDiscount: string;
-    badge: string;
-    image_url: string;
-    category: { _id: string; title: string };
-    description: string;
-    inventory: number;
-    tags: string[];
-  }
+  _id: string;
+  title: string;
+  price: number;
+  priceWithoutDiscount: string;
+  badge: string;
+  image_url: string;
+  category: { _id: string; title: string };
+  description: string;
+  inventory: number;
+  tags: string[];
+}
 
 export default function CartPage() {
   const [cart, setCart] = useState<Product[]>([]);
@@ -38,7 +38,7 @@ export default function CartPage() {
   };
 
   // Cart Item Count
-   const cartItemCount = cart.length;
+  const cartItemCount = cart.length;
 
   return (
     <div className="max-w-screen-2xl mx-auto">
@@ -61,9 +61,9 @@ export default function CartPage() {
             ) : (
               cart.map((post) => (
                 <div key={post._id}>
-                    <div className="sm:flex">
-                      <div className="flex justify-center md:justify-start">
-                  <Link href={`/posts/${post._id}`}>
+                  <div className="sm:flex">
+                    <div className="flex justify-center md:justify-start">
+                      <Link href={`/posts/${post._id}`}>
                         <Image
                           src={post.image_url}
                           alt={post.title}
@@ -71,27 +71,27 @@ export default function CartPage() {
                           height={180}
                           className="rounded"
                         />
-                  </Link>
-                      </div>
-                      <div className="md:ml-5">
-                        <h3 className="text-slate-700 mb-8 mt-2">{post.title}</h3>
-                        <span className="text-slate-400">
-                          <p className="mb-2">Ashen Slate/Cobalt Bliss</p>
-                          <p className="">
-                            <span className="sm:ml-12 md:ml-0">Quantity 1</span>
-                          </p>
-                        </span>
-                        <p className="flex justify-center md:justify-start text-black text-2xl gap-4 mt-8 mb-3">
-                          <FaRegHeart />
-                          <AiOutlineDelete
-                            onClick={() => handleRemoveItem(post._id)}
-                            className="cursor-pointer"
-                          />
-                        </p>
-                      </div>
-                      <span className="mt-4 md:ml-52 ml-4">MRP:${post.price}</span>
+                      </Link>
                     </div>
-                    <hr className="my-10" />
+                    <div className="md:ml-5">
+                      <h3 className="text-slate-700 mb-8 mt-2">{post.title}</h3>
+                      <span className="text-slate-400">
+                        <p className="mb-2">Ashen Slate/Cobalt Bliss</p>
+                        <p className="">
+                          <span className="sm:ml-12 md:ml-0">Quantity 1</span>
+                        </p>
+                      </span>
+                      <p className="flex justify-center md:justify-start text-black text-2xl gap-4 mt-8 mb-3">
+                        <FaRegHeart />
+                        <AiOutlineDelete
+                          onClick={() => handleRemoveItem(post._id)}
+                          className="cursor-pointer"
+                        />
+                      </p>
+                    </div>
+                    <span className="mt-4 md:ml-52 ml-4">MRP:${post.price}</span>
+                  </div>
+                  <hr className="my-10" />
                 </div>
               ))
             )}
@@ -115,9 +115,15 @@ export default function CartPage() {
                 ${cart.reduce((total, item) => total + item.price, 0)}.00
               </span>
             </p>
-            <button className="border-2 md:px-20 px-10 py-3 rounded-full mt-6 bg-cyan-600 transition-transform transform hover:scale-105">
+            <Link
+              href={{
+                pathname: "/checkout", // Adjust the path if necessary
+                query: { cart: JSON.stringify(cart) }, // Optionally pass cart data via query
+              }}
+              className="border-2 md:px-20 px-10 py-3 rounded-full mt-6 bg-cyan-600 transition-transform transform hover:scale-105"
+            >
               Member Checkout
-            </button>
+            </Link>
           </div>
         </div>
       </div>
