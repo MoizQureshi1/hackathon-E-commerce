@@ -106,24 +106,27 @@ export default function CartPage() {
                 ${cart.reduce((total, item) => total + item.price, 0)}.00
               </span>
             </p>
-            <p className="flex justify-between">
+            <p className="flex justify-between my-5">
               <span className="mr-6">Estimated Delivery and Handling</span> <span>Free</span>
             </p>
-            <p className="border-t-2 border-b-2 py-3 flex justify-between">
+            <p className="border-t-2 border-b-2 py-4 flex justify-between">
               <span>Total</span>
               <span>
                 ${cart.reduce((total, item) => total + item.price, 0)}.00
               </span>
             </p>
+            <div className="mt-8 transition-transform transform hover:scale-105">
             <Link
               href={{
                 pathname: "/checkout", // Adjust the path if necessary
                 query: { cart: JSON.stringify(cart) }, // Optionally pass cart data via query
+                
               }}
-              className="border-2 md:px-20 px-10 py-3 rounded-full mt-6 bg-cyan-600 transition-transform transform hover:scale-105"
+              className="border-2 md:px-20 px-10 py-3 rounded-full bg-cyan-600 transition-transform transform hover:scale-105"
             >
               Member Checkout
             </Link>
+            </div>
           </div>
         </div>
       </div>

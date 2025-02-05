@@ -133,16 +133,15 @@ const getProductData = async (id: string) => {
   }
 };
 
-// Dynamic Route Handler (params is now a Promise)
-const ProductPageWrapper = ({ params }: { params: Promise<{ name: string }> }) => {
+// Dynamic Route Handler
+const ProductPageWrapper = ({ params }: { params: { name: string } }) => {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const resolvedParams = await params;  // Unwrap the Promise
-        const productData = await getProductData(resolvedParams.name); // Fetch product by ID
+        const productData = await getProductData(params.name); // Fetch product by ID
         if (productData) {
           setProduct(productData);
         } else {
@@ -167,7 +166,7 @@ const ProductPageWrapper = ({ params }: { params: Promise<{ name: string }> }) =
 export default function Page({ params }: { params: { name: string } }) {
   return (
     <div>
-      <ProductPageWrapper params={Promise.resolve(params)} />
+      <ProductPageWrapper params={params} />
     </div>
   );
 }
