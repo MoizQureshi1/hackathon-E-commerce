@@ -1,50 +1,25 @@
-"use client"; // Ensures this component only runs on the client-side
-
+"use client"; // This directive ensures the component runs only on the client side in a Next.js app.
+// Install @stripe/stripe-js & @stripe/react-stripe-js
 import React, { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { createPaymentIntent } from "./action"; // Your server-side action to create Payment Intent
-import Image from "next/image";
+import { createPaymentIntent } from "./action";
 
 // Initialize Stripe with the public key from environment variables
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 
-interface CartItem {
-  title: string;
-  price: number;
-  image_url: string;
-}
-
 export default function CheckoutPage() {
+  // State to store the client secret, which is required for processing the payment
   const [clientSecret, setClientSecret] = useState<string | null>(null);
-  const [cart, setCart] = useState<CartItem[]>([]);
-  const [totalPrice, setTotalPrice] = useState<number>(0);
 
   useEffect(() => {
-    // Fetch cart from localStorage (or another source)
-    const savedCart = localStorage.getItem("cart");
-    if (savedCart) {
-      const parsedCart: CartItem[] = JSON.parse(savedCart);
-      setCart(parsedCart);
-      const total = parsedCart.reduce((acc, item) => acc + item.price, 0);
-      setTotalPrice(total);
-
-      // Log cart details to check for any missing info
-      if (!parsedCart.every(item => item.price && item.title)) {
-        console.error("Missing cart item details: ", parsedCart);
-      }
-    }
-
-    // Request the clientSecret from the server for Stripe PaymentIntent
+    // When the component mounts, request a new PaymentIntent from the server
     createPaymentIntent()
       .then((res) => {
-        console.log("Client Secret:", res.clientSecret); // Add logging
-        setClientSecret(res.clientSecret); // Set the client secret after getting it from the server
+          setClientSecret(res.clientSecret); // Save the client secret to state
       })
-      .catch((error) => {
-        console.error("Error creating PaymentIntent: ", error);
-      });
   }, []);
+  console.log(clientSecret);
 
   if (!clientSecret) {
     return <div className="text-3xl text-center font-extrabold my-52">Loading...</div>;
@@ -56,13 +31,13 @@ export default function CheckoutPage() {
 
       {/* Stripe Elements Setup */}
       <Elements stripe={stripePromise} options={{ clientSecret }}>
-        <PaymentForm cart={cart} totalPrice={totalPrice} />
+        <PaymentForm />
       </Elements>
     </div>
   );
 }
 
-function PaymentForm({ cart, totalPrice }: { cart: CartItem[], totalPrice: number }) {
+function PaymentForm() {
   const stripe = useStripe();
   const elements = useElements();
   const [isProcessing, setIsProcessing] = useState(false);
@@ -77,13 +52,6 @@ function PaymentForm({ cart, totalPrice }: { cart: CartItem[], totalPrice: numbe
 
     setIsProcessing(true);
 
-    // Create the item array to send with the payment
-    const items = cart.map((item) => ({
-      name: item.title,
-      amount: item.price * 100, // Stripe expects amount in cents
-    }));
-
-    console.log("Items to be processed:", items); // Check items being sent
 
     // Confirm the payment
     const { error } = await stripe.confirmPayment({
@@ -144,30 +112,6 @@ function PaymentForm({ cart, totalPrice }: { cart: CartItem[], totalPrice: numbe
           placeholder="123 Main St, City, Country"
           className="py-2 px-3 border-2 rounded-sm shadow-sm text-black"
         />
-      </div>
-
-      {/* Display Cart Items */}
-      <div className="my-4">
-        <h2 className="text-lg font-semibold">Cart Items:</h2>
-        <ul className="grid grid-cols-2 gap-4">
-          {cart.map((item, index) => (
-            <li key={index} className="flex items-center space-x-3">
-              <Image
-                src={item.image_url}
-                alt={item.title}
-                width={50}
-                height={50}
-                className="rounded-md"
-              />
-              <span>{item.title} - ${item.price}</span>
-            </li>
-          ))}
-        </ul>
-
-        {/* Total Price */}
-        <div className="mt-2 text-xl font-semibold" id="price">
-          Total Price: ${totalPrice.toFixed(2)}
-        </div>
       </div>
       
       {/* Submit Button */}
