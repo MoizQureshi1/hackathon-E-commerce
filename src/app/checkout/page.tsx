@@ -65,6 +65,7 @@ function PaymentForm({ cart, totalPrice }: { cart: any[], totalPrice: number }) 
 
     setIsProcessing(true);
 
+    // Confirm the payment
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
@@ -80,6 +81,7 @@ function PaymentForm({ cart, totalPrice }: { cart: any[], totalPrice: number }) 
     });
 
     if (error) {
+      // If there's an error, log the error message and display it
       setErrorMessage(error.message || "An unknown error occurred");
       setIsProcessing(false);
     } else {
@@ -91,7 +93,7 @@ function PaymentForm({ cart, totalPrice }: { cart: any[], totalPrice: number }) 
 
   return (
     <form onSubmit={handleSubmit} className="p-4 border rounded-md shadow-lg">
-
+      
       {/* Display Cart Items */}
       <div className="my-4">
         <h2 className="text-lg font-semibold">Cart Items:</h2>
