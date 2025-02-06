@@ -16,7 +16,7 @@ export default function Home() {
       <CashAccount/>
     </Suspense>
 
-    <Suspense fallback={<div className="text-2xl text-center font-extrabold my-20">Loading...</div>}>
+    <Suspense>
       <Featured/>
     </Suspense>
 
@@ -28,7 +28,7 @@ export default function Home() {
       <Gallery/>
     </Suspense>
 
-    <Suspense>
+    <Suspense fallback={<div className="text-2xl text-center font-extrabold my-20">Loading...</div>}>
       <Products/>
     </Suspense>
     </div>
