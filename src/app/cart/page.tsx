@@ -1,4 +1,4 @@
-"use client"
+'use client'
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { FaRegHeart } from "react-icons/fa";
@@ -37,15 +37,13 @@ export default function CartPage() {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-  // Cart Item Count
   const cartItemCount = cart.length;
+  const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
   return (
     <div className="max-w-screen-2xl mx-auto">
-      {/* Header Section */}
       <div className="flex justify-between items-center py-4 mx-32">
         <h1 className="text-3xl font-bold">Your Shopping Cart</h1>
-        {/* Cart Button with Item Count */}
         <button className="bg-cyan-600 text-white py-2 px-6 rounded-full flex items-center gap-2">
           <span>Cart</span>
           <span className="bg-white text-cyan-600 px-3 py-1 rounded-full">{cartItemCount}</span>
@@ -59,8 +57,8 @@ export default function CartPage() {
             {cart.length === 0 ? (
               <p>Your cart is empty</p>
             ) : (
-              cart.map((post) => (
-                <div key={post._id}>
+              cart.map((post, index) => (
+                <div key={`${post._id}-${index}`}>
                   <div className="sm:flex">
                     <div className="flex justify-center md:justify-start">
                       <Link href={`/posts/${post._id}`}>
@@ -116,16 +114,15 @@ export default function CartPage() {
               </span>
             </p>
             <div className="mt-8 transition-transform transform hover:scale-105">
-            <Link
-              href={{
-                pathname: "/checkout", // Adjust the path if necessary
-                query: { cart: JSON.stringify(cart) }, // Optionally pass cart data via query
-                
-              }}
-              className="border-2 md:px-20 px-10 py-3 rounded-full bg-cyan-600 transition-transform transform hover:scale-105"
-            >
-              Member Checkout
-            </Link>
+              <Link
+                href={{
+                  pathname: "/checkout", 
+                  query: { cart: JSON.stringify(cart), totalPrice: totalPrice.toString() },
+                }}
+                className="border-2 md:px-20 px-10 py-3 rounded-full bg-cyan-600 transition-transform transform hover:scale-105"
+              >
+                Member Checkout
+              </Link>
             </div>
           </div>
         </div>

@@ -17,7 +17,7 @@ export default function Error({
   return (
     <div className='max-w-screen-2xl mx-auto my-52'>
       <h2 className="text-4xl font-bold text-[#272343] text-center">Something went wrong!</h2>
-      <div className='flex justify-center'>
+      <div className='flex justify-center mt-4'>
       <button
         onClick={
           // Attempt to recover by trying to re-render the segment
