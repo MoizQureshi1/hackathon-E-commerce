@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { FaRegHeart } from "react-icons/fa";
@@ -38,11 +38,10 @@ export default function CartPage() {
   };
 
   const cartItemCount = cart.length;
-  const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
   return (
     <div className="max-w-screen-2xl mx-auto">
-      <div className="flex justify-between items-center py-4 mx-32">
+      <div className="flex flex-col md:flex-row items-center py-4 md:mx-28 gap-3 lg:gap-96 lg:ml-72 md:gap-32">
         <h1 className="text-3xl font-bold">Your Shopping Cart</h1>
         <button className="bg-cyan-600 text-white py-2 px-6 rounded-full flex items-center gap-2">
           <span>Cart</span>
@@ -50,9 +49,9 @@ export default function CartPage() {
         </button>
       </div>
 
-      <div className="md:flex justify-center my-16 gap-32">
-        <div className="text-center sm:text-left">
-          <h3 className="font-bold text-xl text-center md:text-left mb-10">Bag</h3>
+          <h3 className="font-bold text-xl text-center md:text-left md:ml-32 mb-10">Bag</h3>
+      <div className="lg:flex justify-center my-16 gap-32">
+        <div className="text-center sm:text-left flex justify-center">
           <div>
             {cart.length === 0 ? (
               <p>Your cart is empty</p>
@@ -71,12 +70,12 @@ export default function CartPage() {
                         />
                       </Link>
                     </div>
-                    <div className="md:ml-5">
+                    <div className="sm:ml-5">
                       <h3 className="text-slate-700 mb-8 mt-2">{post.title}</h3>
                       <span className="text-slate-400">
                         <p className="mb-2">Ashen Slate/Cobalt Bliss</p>
                         <p className="">
-                          <span className="sm:ml-12 md:ml-0">Quantity 1</span>
+                          <span className="">Quantity 1</span>
                         </p>
                       </span>
                       <p className="flex justify-center md:justify-start text-black text-2xl gap-4 mt-8 mb-3">
@@ -87,7 +86,7 @@ export default function CartPage() {
                         />
                       </p>
                     </div>
-                    <span className="mt-4 md:ml-52 ml-4">MRP:${post.price}</span>
+                    <span className="mt-4 md:ml-52 text-center">MRP:${post.price}</span>
                   </div>
                   <hr className="my-10" />
                 </div>
@@ -96,7 +95,7 @@ export default function CartPage() {
           </div>
         </div>
         <div>
-          <div className="mt-16">
+          <div className="mt-16 mx-5">
             <h3 className="text-xl font-bold mb-7">Summary</h3>
             <p className="flex justify-between mb-3">
               <span>Subtotal</span>
@@ -113,12 +112,9 @@ export default function CartPage() {
                 ${cart.reduce((total, item) => total + item.price, 0)}.00
               </span>
             </p>
-            <div className="mt-8 transition-transform transform hover:scale-105">
+            <div className="mt-8 flex justify-center md:justify-start transition-transform transform hover:scale-105">
               <Link
-                href={{
-                  pathname: "/checkout", 
-                  query: { cart: JSON.stringify(cart), totalPrice: totalPrice.toString() },
-                }}
+                href="checkout"
                 className="border-2 md:px-20 px-10 py-3 rounded-full bg-cyan-600 transition-transform transform hover:scale-105"
               >
                 Member Checkout

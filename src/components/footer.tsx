@@ -90,7 +90,7 @@ export default async function Footer() {
 
       <div className="mt-20 text-center lg:text-left">
         <h3 className="text-slate-400 text-sm font-bold pb-3 md:ml-3">NEWSLETTER</h3>
-        <div className="flex justify-center mx-3">
+        <div className="flex justify-center flex-col md:flex-row mx-3 gap-3">
         <input type="text" className="text-slate-500 bg-white font-normal border-2 p-3 md:pl-5 pl-2 md:pr-16 pr-6 rounded-lg" placeholder="Your email" required/>
         <a href="https://www.youtube.com/@solve-swift" target="blank"><button className="bg-[#029FAE] rounded-xl text-white font-bold py-3 md:px-8 px-3 ml-3 transition-transform transform hover:scale-105">Subscribe</button></a>
         </div>

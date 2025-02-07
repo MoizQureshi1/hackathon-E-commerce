@@ -59,7 +59,7 @@ export default async function Aboutpage (){
             </div>
             <div className="mx-10">
                 <h1 className="text-3xl font-bold text-center my-8 pt-14 text-[#272343]">What Makes Our Brand Different</h1>
-                <div className="text-[#007580] flex flex-col md:flex-row justify-center gap-6 mb-14">
+                <div className="text-[#007580] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-14 lg:mx-24">
                     <div className="flex flex-col  justify-center bg-slate-100 p-5">
                         <TbBusStop className="text-2xl"/>
                         <h2 className="text-xl my-2">Next day as Standard</h2>
@@ -82,9 +82,9 @@ export default async function Aboutpage (){
                     </div>
                 </div>
             </div>
-            <div className="mx-10">
+            <div className="ld:mx-10">
                 <h2 className="text-3xl text-center md:text-left font-semibold sm:ml-20 lg:ml-32 my-8 pt-20 text-[#272343]">Our Popular Products</h2>
-                <div className="flex flex-col md:flex-row justify-center gap-5 mb-32 mx-28">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mb-32 lg:mx-28">
                     {CMSAbout.map((feature) => (
                         <div key={feature._id}>
                     <Link href={`/posts/${feature._id}`} className="flex justify-center">

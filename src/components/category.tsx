@@ -49,7 +49,7 @@ export default async function Category() {
           Top Categories
         </h2>
         <Link href="products">
-        <div className="flex flex-col md:flex-row justify-center mx-6 md:mx-3 lg:mx-0 gap-5 lg:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mx-6 md:mx-20 lg:mx-40 gap-5 lg:gap-10">
           {CMSCategory.map((category) => (
             <div className="flex justify-center relative transition-transform transform hover:scale-105" key={category._id}>
               {/* Display image directly */}

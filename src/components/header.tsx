@@ -37,7 +37,7 @@ export default async function Navbar (){
                         <option>....</option>
                         <option>Other</option>
                     </select>
-                    <Link href="shop" className="hover:underline">Faqs</Link>
+                    <Link href="page" className="hover:underline">Faqs</Link>
                     <Link href="shop"className="flex hover:underline"><BiErrorCircle className="mt-1 mr-1"/>Need Help</Link>
                 </div>
             </div>

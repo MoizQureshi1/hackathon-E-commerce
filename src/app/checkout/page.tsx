@@ -1,130 +1,265 @@
-"use client"; // This directive ensures the component runs only on the client side in a Next.js app.
-// Install @stripe/stripe-js & @stripe/react-stripe-js
-import React, { useState, useEffect } from "react";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { createPaymentIntent } from "./action";
+"use client";
 
-// Initialize Stripe with the public key from environment variables
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { client } from "@/sanity/lib/client";
+import Image from "next/image";
+import Link from "next/link";
 
-export default function CheckoutPage() {
-  // State to store the client secret, which is required for processing the payment
-  const [clientSecret, setClientSecret] = useState<string | null>(null);
+type CartProduct = {
+  name: string;
+  price: string;
+  imageUrl: string;
+};
 
-  useEffect(() => {
-    // When the component mounts, request a new PaymentIntent from the server
-    createPaymentIntent()
-      .then((res) => {
-          setClientSecret(res.clientSecret); // Save the client secret to state
-      })
-  }, []);
-  console.log(clientSecret);
+type itemType = {
+  name: string;
+  price: string;
+};
 
-  if (!clientSecret) {
-    return <div className="text-3xl text-center font-extrabold my-52">Loading...</div>;
-  }
+// Define the schema for validation
+const formSchema = z.object({
+  fullName: z.string().min(2).max(49),
+  email: z.string().email(),
+  subject: z.string().min(2).max(49),
+  message: z.string(),
+  address: z.string().min(5).max(255), // Added Address field
+  phoneNumber: z.string().min(10).max(15), // Added Phone Number field
+  cartDetails: z.array(
+    z.object({
+      name: z.string(),
+      price: z.string(),
+      imageUrl: z.string(),
+    })
+  ),
+  totalPrice: z.string(),
+});
+
+type FormType = z.infer<typeof formSchema>;
+
+const ContactForm = () => {
+  // Fetch the cart items from localStorage
+  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+  // Combine cart items information into the subject/message (Optional)
+  const cartDetails = cart.map((item: { title: string; price: string; image_url: string }) => ({
+    name: item.title,
+    price: `$${item.price}`,
+    imageUrl: item.image_url,
+  }));
+
+  // Calculate total price
+  const totalPrice = cart.reduce(
+    (acc: number, item: { price: string }) => acc + parseFloat(item.price),
+    0
+  ).toFixed(2);
+
+  const form = useForm<FormType>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      fullName: "",
+      email: "",
+      subject: cartDetails.length ? `Inquiry about products in cart` : "",
+      message:
+        cartDetails.length
+          ? `I am interested in the following products:\n` +
+            cartDetails.map((item: itemType) => `${item.name} - ${item.price}`).join(", ")
+          : "",
+      cartDetails: cartDetails,
+      totalPrice: `$${totalPrice}`,
+      address: "", // Default empty address
+      phoneNumber: "", // Default empty phone number
+    },
+  });
+
+  // Form submission function
+function onSubmit(values: FormType) {
+  // Send form data to Sanity
+  client
+    .create({
+      _type: "checkoutForm", // The type of the document you're creating
+      name: values.fullName,
+      email: values.email,
+      subject: values.subject,
+      message: values.message,
+      address: values.address, // Address field data
+      phoneNumber: values.phoneNumber, // Phone number field data
+      cartDetails: values.cartDetails, // Cart details
+      totalPrice: values.totalPrice, // Total price
+    })
+    .then(() => {
+      alert("Message submitted successfully!");
+    })
+    .catch((error) => {
+      console.error(error);
+      alert("There was an error submitting the form.");
+    });
+}
 
   return (
-    <div style={{ maxWidth: 600, margin: "0 auto" }}>
-      <h1 className="text-xl font-bold my-4">Checkout</h1>
+    <div className="text-[#272343] py-8">
+      <Form {...form}>
+        <div className=" text-center mb-6">
+          <h2 className="text-3xl font-extrabold font-sans mb-2">Contact Us</h2>
+          <p>Please fill out the form below to get in touch with us</p>
+        </div>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-8 flex flex-col justify-center border-4 px-6 mx-5 lg:mx-80 md:px-20 py-8 rounded-xl bg-[#F0F2F3]"
+        >
+          {/* Full Name */}
+          <FormField
+            control={form.control}
+            name="fullName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Full Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Full Name" {...field} className="bg-white" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-      {/* Stripe Elements Setup */}
-      <Elements stripe={stripePromise} options={{ clientSecret }}>
-        <PaymentForm />
-      </Elements>
+          {/* Email */}
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input placeholder="Email" {...field} className="bg-white" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Phone Number */}
+          <FormField
+            control={form.control}
+            name="phoneNumber"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Phone Number</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Enter your phone number"
+                    {...field}
+                    value={field.value || ""} // Ensure value is always a string
+                    className="bg-white"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Address */}
+          <FormField
+            control={form.control}
+            name="address"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Address</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Enter your address"
+                    {...field}
+                    value={field.value || ""} // Ensure value is always a string
+                    className="bg-white"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Subject */}
+          <FormField
+            control={form.control}
+            name="subject"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Subject</FormLabel>
+                <FormControl>
+                  <Input placeholder="Subject" {...field} className="bg-white" />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          {/* Message */}
+          <FormField
+            control={form.control}
+            name="message"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel className="mb-1 mt-1">Message</FormLabel>
+                <FormControl>
+                  <textarea
+                    placeholder="Message"
+                    {...field}
+                    className="bg-white text-sm font-medium border-2 pt-3 pl-3 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          {/* Cart Product Details Section */}
+          <div className="space-y-4 grid sm:grid-cols-2">
+            {cartDetails.map((product: CartProduct, index: number) => (
+              <div key={index} className="flex items-center space-x-4">
+                <Image
+                  src={product.imageUrl}
+                  alt={product.name}
+                  width={50}
+                  height={50}
+                  className="w-16 h-16 object-cover rounded"
+                />
+                <div className="flex flex-col">
+                  <p className="text-sm font-semibold">{product.name}</p>
+                  <p className="text-xs text-gray-500">{product.price}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Display Total Price */}
+          {cartDetails.length > 0 && (
+            <div className="mt-4 text-lg font-semibold">
+              <p>Total Price: {`$${totalPrice}`}</p>
+            </div>
+          )}
+
+          {/* Submit Button */}
+          <Button type="submit" className="flex text-sm font-semibold py-3 px-7 rounded-lg bg-[#029FAE] hover:bg-cyan-600 text-white mx-6 transition-transform transform hover:scale-105">Submit</Button>
+
+          <div>  
+            <p
+            className="ml-6 mb-1 font-semibold text-lg"
+            >If you wanna payment online click here</p>  
+            <Link href="payment" className="text-lg font-extralight px-7 py-1 rounded-lg bg-teal-200 hover:bg-cyan-600 text-black text-center mr-80 ml-5 transition-transform transform hover:scale-105">Payment</Link>
+          </div>
+          
+        </form>
+      </Form>
     </div>
   );
-}
+};
 
-function PaymentForm() {
-  const stripe = useStripe();
-  const elements = useElements();
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [fullName, setFullName] = useState("");
-  const [address, setAddress] = useState("");
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!stripe || !elements) return;
-
-    setIsProcessing(true);
-
-
-    // Confirm the payment
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: window.location.href,
-        shipping: {
-          name: fullName,
-          address: {
-            line1: address,
-          },
-        },
-      },
-      redirect: "if_required",
-    });
-
-    if (error) {
-      console.error("Error during payment confirmation:", error); // Log the error for debugging
-      setErrorMessage(error.message || "An unknown error occurred");
-      setIsProcessing(false);
-    } else {
-      setErrorMessage(null);
-      alert("Payment successful!");
-      setIsProcessing(false);
-    }
-  };
-
-  return (
-    <form onSubmit={handleSubmit} className="p-4 border rounded-md shadow-lg">
-
-      {/* Stripe's Payment Element */}
-      <PaymentElement className="my-4" />
-
-      {/* Shipping Details */}
-
-
-      <div className="flex flex-col mt-4">
-        <label htmlFor="fullName" className="text-gray-700">Full Name</label>
-        <input
-          id="fullName"
-          type="text"
-          value={fullName}
-          onChange={(e) => setFullName(e.target.value)}
-          required
-          placeholder="Your Full Name"
-          className="py-2 px-3 border-2 rounded-sm shadow-sm text-black"
-        />
-      </div>
-
-      <div className="flex flex-col mt-4">
-        <label htmlFor="address" className="text-gray-700">Address</label>
-        <input
-          id="address"
-          type="text"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          required
-          placeholder="123 Main St, City, Country"
-          className="py-2 px-3 border-2 rounded-sm shadow-sm text-black"
-        />
-      </div>
-      
-      {/* Submit Button */}
-      <button
-        type="submit"
-        disabled={!stripe || isProcessing}
-        className="flex text-sm font-semibold py-3 px-7 my-4 rounded-lg bg-[#029FAE] hover:bg-cyan-600 text-white transition-transform transform hover:scale-105"
-      >
-        {isProcessing ? "Processing..." : "Pay Now"}
-      </button>
-
-      {/* Error Message */}
-      {errorMessage && <div style={{ color: "red", marginTop: 8 }}>{errorMessage}</div>}
-    </form>
-  );
-}
+export default ContactForm;

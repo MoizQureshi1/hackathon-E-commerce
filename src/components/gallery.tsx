@@ -40,7 +40,7 @@ export default async function Gallery() {
 
   return (
     <div className="max-w-screen-2xl mx-auto">
-      <div className="flex flex-col md:flex-row justify-center mx-6 mt-28 md:mr-20">
+      <div className="flex flex-col md:flex-row justify-center mx-6 mt-28 lg:mr-20 gap-4">
         {/* Left Side Image */}
         <div className="flex justify-center w-full md:w-1/2">
         <Image src={text} alt="text" width={40}/>

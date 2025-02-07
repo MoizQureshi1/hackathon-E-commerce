@@ -94,7 +94,7 @@ export default function Products() {
       <h2 className="text-3xl font-bold text-center md:text-left md:ml-40 mb-7 mt-20 text-[#272343]">
         Featured Products
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mx-6 md:mx-40 mb-20">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mx-6 lg:mx-40 mb-20">
         {CMSProduct.map((feature, index) => (
           <div key={feature._id}>
             <div className="flex justify-center transition-transform transform hover:scale-105">
@@ -107,12 +107,12 @@ export default function Products() {
                     height={400} // Adjust height based on the aspect ratio you prefer
                     className="rounded-t-lg object-cover"
                   />
-                  {(index === 0 || index === 1 || index === 3) && (
+                  {(index === 0 || index === 1 || index === 3 || index === 11) && (
                     <button className="absolute inset-0 text-center text-[#FFFFFF] bg-[#01AD5A] rounded-md mb-48 mt-3 ml-2 mr-40 transition-transform transform hover:scale-105">
                       <span className="text-sm font-medium">{feature.badge}</span>
                     </button>
                   )}
-                  {(index === 5 || index === 6 || index === 7) && (
+                  {(index === 4 || index === 6 || index === 8 || index === 7) && (
                     <button className="absolute inset-0 text-center text-[#FFFFFF] bg-[#F5813F] rounded-md mb-48 mt-3 ml-2 mr-40 transition-transform transform hover:scale-105">
                       <span className="text-sm font-medium">{feature.badge}</span>
                     </button>
@@ -165,7 +165,7 @@ export default function Products() {
             </a>
           </p>
           <h1 className="text-4xl font-semibold my-14 mx-5">Follow Products And Discounts On Instagram</h1>
-          <div className="flex flex-col md:flex-row gap-5 mx-28">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mx-20 sm:mx-32 lg:mx-40 mb-20">
             {CMSInsta.map((insta) => (
               <div key={insta._id}>
                 <Link href={`/posts/${insta._id}`}>

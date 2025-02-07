@@ -71,7 +71,7 @@ export default function Featured() {
       <h2 className="text-3xl font-bold text-center md:text-left md:ml-40 mb-7 mt-2 text-[#272343]">
         Featured Products
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mx-6 md:mx-40">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mx-6 lg:mx-40 mb-20">
         {CMSFeatured.map((feature, index) => (
           <div key={feature._id}>
             <div className="flex justify-center transition-transform transform hover:scale-105">
@@ -84,17 +84,7 @@ export default function Featured() {
                     height={400} // Adjust height based on the aspect ratio you prefer
                     className="rounded-t-lg object-cover"
                   />
-                  {index === 0 && (
-                    <button className="absolute inset-0 text-center text-[#FFFFFF] bg-[#01AD5A] rounded-md mb-48 mt-3 ml-2 mr-40 transition-transform transform hover:scale-105">
-                      <span className="text-sm font-medium">{feature.badge}</span>
-                    </button>
-                  )}
-                  {index === 1 && (
-                    <button className="absolute inset-0 text-center text-[#FFFFFF] bg-[#01AD5A] rounded-md mb-48 mt-3 ml-2 mr-40 transition-transform transform hover:scale-105">
-                      <span className="text-sm font-medium">{feature.badge}</span>
-                    </button>
-                  )}
-                  {index === 3 && (
+                  {(index === 0 || index === 1 || index === 3) && (
                     <button className="absolute inset-0 text-center text-[#FFFFFF] bg-[#01AD5A] rounded-md mb-48 mt-3 ml-2 mr-40 transition-transform transform hover:scale-105">
                       <span className="text-sm font-medium">{feature.badge}</span>
                     </button>
