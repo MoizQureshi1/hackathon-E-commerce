@@ -33,9 +33,7 @@
     "styled-components": "^6.1.13",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
-    "zod": "^3.24.1",
-    "@sanity/client": "^2.0.0",
-    "@sanity/base": "^2.0.0"
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@types/node": "^20",
