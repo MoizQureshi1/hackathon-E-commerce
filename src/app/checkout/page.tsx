@@ -15,7 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { client } from "@/sanity/lib/client";
 import Image from "next/image";
-import Link from "next/link";
+import { useEffect, useState } from "react";
 
 type CartProduct = {
   name: string;
@@ -28,14 +28,13 @@ type itemType = {
   price: string;
 };
 
-// Define the schema for validation
 const formSchema = z.object({
   fullName: z.string().min(2).max(49),
   email: z.string().email(),
   subject: z.string().min(2).max(49),
   message: z.string(),
-  address: z.string().min(5).max(255), // Added Address field
-  phoneNumber: z.string().min(10).max(15), // Added Phone Number field
+  address: z.string().min(5).max(255),
+  phoneNumber: z.string().min(10).max(15),
   cartDetails: z.array(
     z.object({
       name: z.string(),
@@ -49,21 +48,29 @@ const formSchema = z.object({
 type FormType = z.infer<typeof formSchema>;
 
 const ContactForm = () => {
-  // Fetch the cart items from localStorage
-  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  const [cart, setCart] = useState<CartProduct[]>([]);
+  const [loading, setLoading] = useState(false);
 
-  // Combine cart items information into the subject/message (Optional)
-  const cartDetails = cart.map((item: { title: string; price: string; image_url: string }) => ({
-    name: item.title,
-    price: `$${item.price}`,
-    imageUrl: item.image_url,
-  }));
+  // Fetch the cart items from localStorage on the client side
+  useEffect(() => {
+    const cartData = localStorage.getItem("cart");
+    if (cartData) {
+      setCart(JSON.parse(cartData));
+    }
+  }, []);
 
-  // Calculate total price
-  const totalPrice = cart.reduce(
-    (acc: number, item: { price: string }) => acc + parseFloat(item.price),
-    0
-  ).toFixed(2);
+  // Map cart data into the necessary format
+  const cartDetails = cart.length
+    ? cart.map((item) => ({
+        name: item.title || "Unnamed Product",
+        price: `$${item.price || "0.00"}`,
+        imageUrl: item.image_url || "/default-image.jpg",
+      }))
+    : [];
+
+  const totalPrice = cart
+    .reduce((acc: number, item: { price: string }) => acc + parseFloat(item.price), 0)
+    .toFixed(2);
 
   const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
@@ -78,39 +85,38 @@ const ContactForm = () => {
           : "",
       cartDetails: cartDetails,
       totalPrice: `$${totalPrice}`,
-      address: "", // Default empty address
-      phoneNumber: "", // Default empty phone number
+      address: "",
+      phoneNumber: "",
     },
   });
 
-  // Form submission function
-function onSubmit(values: FormType) {
-  // Send form data to Sanity
-  client
-    .create({
-      _type: "checkoutForm", // The type of the document you're creating
-      name: values.fullName,
-      email: values.email,
-      subject: values.subject,
-      message: values.message,
-      address: values.address, // Address field data
-      phoneNumber: values.phoneNumber, // Phone number field data
-      cartDetails: values.cartDetails, // Cart details
-      totalPrice: values.totalPrice, // Total price
-    })
-    .then(() => {
-      alert("Message submitted successfully!");
-    })
-    .catch((error) => {
-      console.error(error);
-      alert("There was an error submitting the form.");
-    });
-}
+  const onSubmit = async (values: FormType) => {
+    setLoading(true);
+    try {
+      await client.create({
+        _type: "checkoutForm",
+        name: values.fullName,
+        email: values.email,
+        subject: values.subject,
+        message: values.message,
+        address: values.address,
+        phoneNumber: values.phoneNumber,
+        cartDetails: values.cartDetails,
+        totalPrice: values.totalPrice,
+      });
+      alert("Your message has been submitted!");
+    } catch (error) {
+      console.error("Submission error:", error);
+      alert("There was an error submitting the form. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="text-[#272343] py-8">
       <Form {...form}>
-        <div className=" text-center mb-6">
+        <div className="text-center mb-6">
           <h2 className="text-3xl font-extrabold font-sans mb-2">Contact Us</h2>
           <p>Please fill out the form below to get in touch with us</p>
         </div>
@@ -159,7 +165,7 @@ function onSubmit(values: FormType) {
                   <Input
                     placeholder="Enter your phone number"
                     {...field}
-                    value={field.value || ""} // Ensure value is always a string
+                    value={field.value || ""}
                     className="bg-white"
                   />
                 </FormControl>
@@ -179,7 +185,7 @@ function onSubmit(values: FormType) {
                   <Input
                     placeholder="Enter your address"
                     {...field}
-                    value={field.value || ""} // Ensure value is always a string
+                    value={field.value || ""}
                     className="bg-white"
                   />
                 </FormControl>
@@ -247,15 +253,13 @@ function onSubmit(values: FormType) {
           )}
 
           {/* Submit Button */}
-          <Button type="submit" className="flex text-sm font-semibold py-3 px-7 rounded-lg bg-[#029FAE] hover:bg-cyan-600 text-white mx-6 transition-transform transform hover:scale-105">Submit</Button>
-
-          <div>  
-            <p
-            className="ml-6 mb-1 font-semibold text-lg"
-            >If you wanna payment online click here</p>  
-            <Link href="payment" className="text-lg font-extralight px-7 py-1 rounded-lg bg-teal-200 hover:bg-cyan-600 text-black text-center mr-80 ml-5 transition-transform transform hover:scale-105">Payment</Link>
-          </div>
-          
+          <Button
+            type="submit"
+            className="flex text-sm font-semibold py-3 px-7 rounded-lg bg-[#029FAE] hover:bg-cyan-600 text-white mx-6 transition-transform transform hover:scale-105"
+            disabled={loading}
+          >
+            {loading ? "Submitting..." : "Submit"}
+          </Button>
         </form>
       </Form>
     </div>
