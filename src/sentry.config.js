@@ -1,4 +1,4 @@
-const { withSentryConfig, defaultRequestInstrumentationOptions } = defaultRequestInstrumentationOptions("@sentry/nextjs");
+import { withSentryConfig } from "@sentry/nextjs";
 
 const moduleExports = {
 };
