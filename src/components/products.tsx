@@ -67,8 +67,8 @@ export default  function Featured() {
 
   return (
     <div className="max-w-screen-2xl mx-auto">
-      <h2 className="text-3xl font-bold text-center md:text-left md:ml-40 mb-7 mt-20 text-[#272343]">
-        Featured Products
+      <h2 className="text-3xl font-bold text-center  mb-7 mt-20 text-[#272343]">
+        Our Products
       </h2>
         <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mx-6 lg:mx-40 mb-20">
         {CMSFeatured.map((feature, index) => (

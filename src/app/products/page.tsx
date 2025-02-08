@@ -92,7 +92,7 @@ export default function Products() {
   return (
     <div className="max-w-screen-2xl mx-auto">
       <h2 className="text-3xl font-bold text-center md:text-left md:ml-40 mb-7 mt-20 text-[#272343]">
-        Featured Products
+        All Products
       </h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mx-6 lg:mx-40 mb-20">
         {CMSProduct.map((feature, index) => (
