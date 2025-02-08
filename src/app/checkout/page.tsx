@@ -17,15 +17,12 @@ import { client } from "@/sanity/lib/client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+// Adjusted types for cart details
 type CartProduct = {
   name: string;
   price: string;
-  imageUrl: string;
-};
-
-type itemType = {
-  name: string;
-  price: string;
+  image_url: string;
+  title: string;
 };
 
 const formSchema = z.object({
@@ -81,7 +78,7 @@ const ContactForm = () => {
       message:
         cartDetails.length
           ? `I am interested in the following products:\n` +
-            cartDetails.map((item: itemType) => `${item.name} - ${item.price}`).join(", ")
+            cartDetails.map((item) => `${item.name} - ${item.price}`).join(", ")
           : "",
       cartDetails: cartDetails,
       totalPrice: `$${totalPrice}`,
@@ -228,7 +225,7 @@ const ContactForm = () => {
 
           {/* Cart Product Details Section */}
           <div className="space-y-4 grid sm:grid-cols-2">
-            {cartDetails.map((product: CartProduct, index: number) => (
+            {cartDetails.map((product, index) => (
               <div key={index} className="flex items-center space-x-4">
                 <Image
                   src={product.imageUrl}
