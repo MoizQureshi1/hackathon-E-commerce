@@ -16,6 +16,7 @@ interface Product {
   description: string;
   inventory: number;
   tags: string[];
+  quantity: number; // Add quantity field here
 }
 
 export default function CartPage() {
@@ -25,7 +26,11 @@ export default function CartPage() {
   useEffect(() => {
     const savedCart = localStorage.getItem("cart");
     if (savedCart) {
-      setCart(JSON.parse(savedCart));
+      try {
+        setCart(JSON.parse(savedCart));
+      } catch (error) {
+        console.error("Error parsing cart from localStorage:", error);
+      }
     }
   }, []);
 
@@ -35,6 +40,11 @@ export default function CartPage() {
     setCart(updatedCart);
     // Update localStorage
     localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+
+  // Calculate Subtotal and Total
+  const calculateTotal = () => {
+    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
   const cartItemCount = cart.length;
@@ -49,7 +59,7 @@ export default function CartPage() {
         </button>
       </div>
 
-          <h3 className="font-bold text-xl text-center md:text-left md:ml-32 mb-10">Bag</h3>
+      <h3 className="font-bold text-xl text-center md:text-left md:ml-32 mb-10">Bag</h3>
       <div className="lg:flex justify-center my-16 gap-32">
         <div className="text-center sm:text-left flex justify-center">
           <div>
@@ -74,8 +84,8 @@ export default function CartPage() {
                       <h3 className="text-slate-700 mb-8 mt-2">{post.title}</h3>
                       <span className="text-slate-400">
                         <p className="mb-2">Ashen Slate/Cobalt Bliss</p>
-                        <p className="">
-                          <span className="">Quantity 1</span>
+                        <p>
+                          <span>Quantity: {post.quantity}</span>
                         </p>
                       </span>
                       <p className="flex justify-center md:justify-start text-black text-2xl gap-4 mt-8 mb-3">
@@ -86,7 +96,7 @@ export default function CartPage() {
                         />
                       </p>
                     </div>
-                    <span className="mt-4 md:ml-52 text-center">MRP:${post.price}</span>
+                    <span className="mt-4 md:ml-52 text-center">MRP:${post.price * post.quantity}</span>
                   </div>
                   <hr className="my-10" />
                 </div>
@@ -99,18 +109,14 @@ export default function CartPage() {
             <h3 className="text-xl font-bold mb-7">Summary</h3>
             <p className="flex justify-between mb-3">
               <span>Subtotal</span>
-              <span>
-                ${cart.reduce((total, item) => total + item.price, 0)}.00
-              </span>
+              <span>${calculateTotal()}.00</span>
             </p>
             <p className="flex justify-between my-5">
               <span className="mr-6">Estimated Delivery and Handling</span> <span>Free</span>
             </p>
             <p className="border-t-2 border-b-2 py-4 flex justify-between">
               <span>Total</span>
-              <span>
-                ${cart.reduce((total, item) => total + item.price, 0)}.00
-              </span>
+              <span>${calculateTotal()}.00</span>
             </p>
             <div className="mt-8 flex justify-center md:justify-start transition-transform transform hover:scale-105">
               <Link
