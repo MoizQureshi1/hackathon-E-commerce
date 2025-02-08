@@ -120,7 +120,7 @@ export default function CartPage() {
             </p>
             <div className="mt-8 flex justify-center md:justify-start transition-transform transform hover:scale-105">
               <Link
-                href="checkout"
+                href="orderconform"
                 className="border-2 md:px-20 px-10 py-3 rounded-full bg-cyan-600 transition-transform transform hover:scale-105"
               >
                 Member Checkout
