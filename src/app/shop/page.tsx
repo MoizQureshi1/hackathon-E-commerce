@@ -19,6 +19,7 @@ import { FaClock, FaHeadset } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { GoVerified } from "react-icons/go";
 import { IoTrophy } from "react-icons/io5";
+import { useState } from "react";
 
 const formSchema = z.object({
     fullName: z.string().min(2).max(49),
@@ -30,20 +31,36 @@ const formSchema = z.object({
 type FormType =  z.infer<typeof formSchema>
 
 const ShopPage = () => {
+      const [loading, setLoading] = useState(false);
 
     const form = useForm<FormType>({
         resolver: zodResolver(formSchema),
+        defaultValues: {
+            fullName: "",
+            email: "",
+            subject:"",
+            message:"",
+        }
     })
 
-    function onSubmit(values: FormType) {
-        client.create({
+    const onSubmit = async (values: FormType) => {
+        setLoading(true);
+        try {
+            await client.create({
             _type: "contactForm",
             name: values.fullName,
             email: values.email,
             subject: values.subject,
             message: values.message
-        })
-      }
+        });
+        alert("Your message has been submitted!");
+    } catch (error) {
+      console.error("Submission error:", error);
+      alert("There was an error submitting the form. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
     return(
        <>
@@ -135,7 +152,13 @@ const ShopPage = () => {
                             )}
                         />  
                             <div className="flex justify-center md:justify-start mt-4 md:mt-0">
-                            <Button type="submit" className="border-2 rounded-xl mt-5 py-5 px-16 bg-[#029FAE] text-white transition-transform transform hover:scale-105">Submit</Button>
+                            <Button 
+                            type="submit" 
+                            className="border-2 rounded-xl mt-5 py-5 px-16 bg-[#029FAE] text-white transition-transform transform hover:scale-105"
+                            disabled={loading}
+                            >
+                              {loading ? "Submitting..." : "Submit"}
+                            </Button>
                             </div>
                         </form>
                     </div>

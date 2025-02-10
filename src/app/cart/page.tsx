@@ -1,9 +1,10 @@
-'use client';
+"use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { FaRegHeart } from "react-icons/fa";
 import { AiOutlineDelete } from "react-icons/ai";
 import Link from "next/link";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 interface Product {
   _id: string;
@@ -16,7 +17,7 @@ interface Product {
   description: string;
   inventory: number;
   tags: string[];
-  quantity: number; // Add quantity field here
+  quantity: number; // Add quantity field for each product
 }
 
 export default function CartPage() {
@@ -34,6 +35,22 @@ export default function CartPage() {
     }
   }, []);
 
+  // Increment the quantity of a specific product
+  const increment = (productId: string) => {
+    setCart(cart.map(item => 
+      item._id === productId ? { ...item, quantity: item.quantity + 1 } : item
+    ));
+    localStorage.setItem("cart", JSON.stringify(cart)); // Update localStorage
+  };
+
+  // Decrement the quantity of a specific product
+  const decrement = (productId: string) => {
+    setCart(cart.map(item => 
+      item._id === productId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+    ));
+    localStorage.setItem("cart", JSON.stringify(cart)); // Update localStorage
+  };
+
   // Handle removing an item from the cart
   const handleRemoveItem = (productId: string) => {
     const updatedCart = cart.filter(item => item._id !== productId);
@@ -44,7 +61,7 @@ export default function CartPage() {
 
   // Calculate Subtotal and Total
   const calculateTotal = () => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+    return cart.reduce((total, item) => total + item.price * item.quantity, 0); // Update total to account for quantity
   };
 
   const cartItemCount = cart.length;
@@ -84,9 +101,16 @@ export default function CartPage() {
                       <h3 className="text-slate-700 mb-8 mt-2">{post.title}</h3>
                       <span className="text-slate-400">
                         <p className="mb-2">Ashen Slate/Cobalt Bliss</p>
-                        <p>
-                          <span>Quantity: {post.quantity}</span>
-                        </p>
+                        <div className="flex gap-3"> 
+                          <span> Quantity : </span> 
+                          <button className="bg-red-500  px-1" onClick={() => decrement(post._id)}> 
+                            <IoIosArrowBack /> 
+                          </button>
+                          <h2 className={post.quantity <= 1 ? 'text-red-500' : 'text-slate-400'}>Count: {post.quantity}</h2> 
+                          <button className="bg-cyan-600 px-1" onClick={() => increment(post._id)}>
+                            <IoIosArrowForward /> 
+                          </button> 
+                        </div>
                       </span>
                       <p className="flex justify-center md:justify-start text-black text-2xl gap-4 mt-8 mb-3">
                         <FaRegHeart />
@@ -96,7 +120,8 @@ export default function CartPage() {
                         />
                       </p>
                     </div>
-                    <span className="mt-4 md:ml-52 text-center">MRP:${post.price * post.quantity}</span>
+                    {/* Update the price display to show price x quantity */}
+                    <span className="mt-4 md:ml-52 text-center">MRP: ${(post.price * post.quantity).toFixed(2)}</span> 
                   </div>
                   <hr className="my-10" />
                 </div>
@@ -109,14 +134,14 @@ export default function CartPage() {
             <h3 className="text-xl font-bold mb-7">Summary</h3>
             <p className="flex justify-between mb-3">
               <span>Subtotal</span>
-              <span>${calculateTotal()}.00</span>
+              <span>${calculateTotal().toFixed(2)}</span> {/* Format the total to two decimal places */}
             </p>
             <p className="flex justify-between my-5">
               <span className="mr-6">Estimated Delivery and Handling</span> <span>Free</span>
             </p>
             <p className="border-t-2 border-b-2 py-4 flex justify-between">
               <span>Total</span>
-              <span>${calculateTotal()}.00</span>
+              <span>${calculateTotal().toFixed(2)}</span> {/* Format the total to two decimal places */}
             </p>
             <div className="mt-8 flex justify-center md:justify-start transition-transform transform hover:scale-105">
               <Link

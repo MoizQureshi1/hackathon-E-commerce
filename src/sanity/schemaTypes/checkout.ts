@@ -62,6 +62,12 @@ export default {
               validation: (Rule: Rule) => Rule.required(), // Ensuring price is required
             },
             {
+              name: "quantity",
+              title: "Product quantity",
+              type: "number",
+              validation: (Rule: Rule) => Rule.required(), // Ensuring price is required
+            },
+            {
               name: "imageUrl",
               title: "Product Image URL",
               type: "string",

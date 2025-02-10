@@ -19,10 +19,12 @@ import { useEffect, useState } from "react";
 
 // Adjusted types for cart details
 type CartProduct = {
+  _id: string;
   name: string;
-  price: string;
+  price: number;
   image_url: string;
   title: string;
+  quantity: number;
 };
 
 const formSchema = z.object({
@@ -37,6 +39,7 @@ const formSchema = z.object({
       name: z.string(),
       price: z.string(),
       imageUrl: z.string(),
+      quantity: z.number(),
     })
   ),
   totalPrice: z.string(),
@@ -60,13 +63,14 @@ const ContactForm = () => {
   const cartDetails = cart.length
     ? cart.map((item) => ({
         name: item.title || "Unnamed Product",
-        price: `$${item.price || "0.00"}`,
+        price: `$${(item.price * item.quantity).toFixed(2)}` || "0.00",
+        quantity: item.quantity || 1,
         imageUrl: item.image_url || "/default-image.jpg",
       }))
     : [];
 
   const totalPrice = cart
-    .reduce((acc: number, item: { price: string }) => acc + parseFloat(item.price), 0)
+    .reduce((acc: number, item: { price: number; quantity: number }) => acc + item.price * item.quantity, 0)
     .toFixed(2);
 
   const form = useForm<FormType>({
@@ -78,7 +82,9 @@ const ContactForm = () => {
       message:
         cartDetails.length
           ? `I am interested in the following products:\n` +
-            cartDetails.map((item) => `${item.name} - ${item.price}`).join(", ")
+            cartDetails
+              .map((item) => `${item.name} - ${item.price} - Quantity: ${item.quantity}`)
+              .join(", ")
           : "",
       cartDetails: cartDetails,
       totalPrice: `$${totalPrice}`,
@@ -88,6 +94,7 @@ const ContactForm = () => {
   });
 
   const onSubmit = async (values: FormType) => {
+    console.log("Form Values on Submit: ", values); // Debugging
     setLoading(true);
     try {
       await client.create({
@@ -98,8 +105,13 @@ const ContactForm = () => {
         message: values.message,
         address: values.address,
         phoneNumber: values.phoneNumber,
-        cartDetails: values.cartDetails,
-        totalPrice: values.totalPrice,
+        cartDetails: values.cartDetails.map(item => ({
+          name: item.name,
+          price: parseFloat(item.price.replace('$', '')), // Ensure price is stored as a number
+          quantity: item.quantity,
+          imageUrl: item.imageUrl,
+        })),
+        totalPrice: parseFloat(values.totalPrice.replace('$', '')), // Convert total price to a number
       });
       alert("Your message has been submitted!");
     } catch (error) {
@@ -199,7 +211,7 @@ const ContactForm = () => {
               <FormItem>
                 <FormLabel>Subject</FormLabel>
                 <FormControl>
-                  <Input placeholder="Subject" {...field} className="bg-white" />
+                  <Input placeholder="Subject" {...field} value={field.value || ""} className="bg-white" />
                 </FormControl>
               </FormItem>
             )}
@@ -216,6 +228,7 @@ const ContactForm = () => {
                   <textarea
                     placeholder="Message"
                     {...field}
+                    value={field.value || ""}
                     className="bg-white text-sm font-medium border-2 pt-3 pl-3 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   />
                 </FormControl>
@@ -236,7 +249,10 @@ const ContactForm = () => {
                 />
                 <div className="flex flex-col">
                   <p className="text-sm font-semibold">{product.name}</p>
-                  <p className="text-xs text-gray-500">{product.price}</p>
+                  <div className="flex gap-3">
+                    <p className="text-xs text-gray-500">Price - {product.price}</p>
+                    <p className="text-xs text-gray-500">Quantity - {product.quantity}</p>
+                  </div>
                 </div>
               </div>
             ))}
