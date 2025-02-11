@@ -106,7 +106,7 @@ export default function CartPage() {
                           <button className="bg-red-500  px-1" onClick={() => decrement(post._id)}> 
                             <IoIosArrowBack /> 
                           </button>
-                          <h2 className={post.quantity <= 1 ? 'text-red-500' : 'text-slate-400'}>Count: {post.quantity}</h2> 
+                          <h2 className={post.quantity <= 0 ? 'text-red-500' : 'text-slate-400'}>Count: {post.quantity}</h2> 
                           <button className="bg-cyan-600 px-1" onClick={() => increment(post._id)}>
                             <IoIosArrowForward /> 
                           </button> 

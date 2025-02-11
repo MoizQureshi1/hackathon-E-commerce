@@ -16,9 +16,10 @@ import { Input } from "@/components/ui/input";
 import { client } from "@/sanity/lib/client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { urlFor } from "@/sanity/lib/image";
 
 // Adjusted types for cart details
-type CartProduct = {
+type CartDetails = {
   _id: string;
   name: string;
   price: number;
@@ -48,56 +49,82 @@ const formSchema = z.object({
 type FormType = z.infer<typeof formSchema>;
 
 const ContactForm = () => {
-  const [cart, setCart] = useState<CartProduct[]>([]);
+  const [cart, setCart] = useState<CartDetails[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // Fetch the cart items from localStorage on the client side
+  // Fetch cart items from localStorage on component mount
   useEffect(() => {
     const cartData = localStorage.getItem("cart");
     if (cartData) {
-      setCart(JSON.parse(cartData));
+      const parsedCart = JSON.parse(cartData);
+      console.log("Cart Data from LocalStorage: ", parsedCart); // Debug log
+      setCart(parsedCart);
     }
   }, []);
 
-  // Map cart data into the necessary format
+  useEffect(() => {
+    console.log("Cart state: ", cart); // Log the cart state
+  }, [cart]);  // This will log every time the cart state changes
+  
+  // Format cart data for the form
   const cartDetails = cart.length
-    ? cart.map((item) => ({
-        name: item.title || "Unnamed Product",
-        price: `$${(item.price * item.quantity).toFixed(2)}` || "0.00",
-        quantity: item.quantity || 1,
-        imageUrl: item.image_url || "/default-image.jpg",
-      }))
-    : [];
+  ? cart.map((item) => ({
+      name: item.title || "Unnamed Product", // Fallback to "Unnamed Product"
+      price: `$${(item.price * item.quantity).toFixed(2)}`, // Format price
+      quantity: item.quantity || 1, // Fallback to quantity 1
+      imageUrl: item.image_url || "/default-image.jpg", // Fallback to default image
+    }))
+  : [];
 
+console.log("Formatted Cart Details: ", cartDetails);  // Log cartDetails before rendering the form
+
+  // Calculate total price for the cart
   const totalPrice = cart
     .reduce((acc: number, item: { price: number; quantity: number }) => acc + item.price * item.quantity, 0)
     .toFixed(2);
 
+  // Initialize the form with default values
   const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       fullName: "",
       email: "",
-      subject: cartDetails.length ? `Inquiry about products in cart` : "",
+      subject: cartDetails.length ? "" : "General Inquiry about products",
       message:
         cartDetails.length
-          ? `I am interested in the following products:\n` +
+          ? "" 
+          : "I am interested in the following products:\n" + 
             cartDetails
               .map((item) => `${item.name} - ${item.price} - Quantity: ${item.quantity}`)
-              .join(", ")
-          : "",
+              .join(", "),
       cartDetails: cartDetails,
       totalPrice: `$${totalPrice}`,
       address: "",
       phoneNumber: "",
-    },
+    },    
   });
 
+  // Handle form submission
   const onSubmit = async (values: FormType) => {
-    console.log("Form Values on Submit: ", values); // Debugging
+    console.log("Form Values on Submit: ", values); // Debug form values
+
+    // Format cart details for submission
+    const finalCartDetails = values.cartDetails.map((item) => ({
+      name: item.name,
+      price: parseFloat(item.price.replace('$', '')), // Remove '$' and convert to number
+      quantity: item.quantity,
+      imageUrl: item.imageUrl,
+    }));
+
+    console.log("Final Cart Details: ", finalCartDetails); // Debug final cart details
+
+    const finalTotalPrice = parseFloat(values.totalPrice.replace('$', ''));
+
+    console.log("Formatted Total Price: ", finalTotalPrice);
+
     setLoading(true);
     try {
-      await client.create({
+      const response = await client.create({
         _type: "checkoutForm",
         name: values.fullName,
         email: values.email,
@@ -105,21 +132,16 @@ const ContactForm = () => {
         message: values.message,
         address: values.address,
         phoneNumber: values.phoneNumber,
-        cartDetails: values.cartDetails.map(item => ({
-          name: item.name,
-          price: parseFloat(item.price.replace('$', '')), // Ensure price is stored as a number
-          quantity: item.quantity,
-          imageUrl: item.imageUrl,
-        })),
-        totalPrice: parseFloat(values.totalPrice.replace('$', '')), // Convert total price to a number
+        cartDetails: finalCartDetails,
+        totalPrice: finalTotalPrice,
       });
+      console.log("Sanity Response: ", response); // Debug response from Sanity
       alert("Your message has been submitted!");
     } catch (error) {
       console.error("Submission error:", error);
       alert("There was an error submitting the form. Please try again later.");
-    } finally {
-      setLoading(false);
     }
+    
   };
 
   return (
@@ -211,7 +233,7 @@ const ContactForm = () => {
               <FormItem>
                 <FormLabel>Subject</FormLabel>
                 <FormControl>
-                  <Input placeholder="Subject" {...field} value={field.value || ""} className="bg-white" />
+                  <Input placeholder="Subject" {...field} className="bg-white" />
                 </FormControl>
               </FormItem>
             )}
@@ -228,7 +250,6 @@ const ContactForm = () => {
                   <textarea
                     placeholder="Message"
                     {...field}
-                    value={field.value || ""}
                     className="bg-white text-sm font-medium border-2 pt-3 pl-3 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   />
                 </FormControl>
@@ -236,27 +257,31 @@ const ContactForm = () => {
             )}
           />
 
-          {/* Cart Product Details Section */}
-          <div className="space-y-4 grid sm:grid-cols-2">
-            {cartDetails.map((product, index) => (
-              <div key={index} className="flex items-center space-x-4">
-                <Image
-                  src={product.imageUrl}
-                  alt={product.name}
-                  width={50}
-                  height={50}
-                  className="w-16 h-16 object-cover rounded"
-                />
-                <div className="flex flex-col">
-                  <p className="text-sm font-semibold">{product.name}</p>
-                  <div className="flex gap-3">
-                    <p className="text-xs text-gray-500">Price - {product.price}</p>
-                    <p className="text-xs text-gray-500">Quantity - {product.quantity}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
+{cartDetails.length === 0 ? (
+  <p>No cart items available.</p>
+) : (
+  <div className="space-y-4 grid sm:grid-cols-2">
+    {cartDetails.map((product, index) => (
+      <div key={index} className="flex items-center space-x-4">
+        <Image
+          src={urlFor(product.imageUrl).width(500).height(500).url()}
+          alt={product.name}
+          width={50}
+          height={50}
+          className="w-16 h-16 object-cover rounded"
+        />
+        <div className="flex flex-col">
+          <p className="text-sm font-semibold">{product.name}</p>
+          <div className="flex gap-3">
+            <p className="text-xs text-gray-500">Price - {product.price}</p>
+            <p className="text-xs text-gray-500">Quantity - {product.quantity}</p>
           </div>
+        </div>
+      </div>
+    ))}
+  </div>
+)}
+
 
           {/* Display Total Price */}
           {cartDetails.length > 0 && (
