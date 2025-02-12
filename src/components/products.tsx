@@ -66,6 +66,7 @@ export default  function Featured() {
    };
 
   return (
+    <>
     <div className="max-w-screen-2xl mx-auto">
       <h2 className="text-3xl font-bold text-center  mb-7 mt-20 text-[#272343]">
         Our Products
@@ -133,5 +134,6 @@ export default  function Featured() {
         ))}
       </div>
     </div>
+    </>
   );
 }

@@ -5,46 +5,28 @@ import { GiSofa } from "react-icons/gi";
 import { IoLogoTwitter } from "react-icons/io";
 import { RiMastercardFill, RiVisaLine } from "react-icons/ri";
 import { SiAmericanexpress } from "react-icons/si";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton
+} from '@clerk/nextjs'
 
+interface Post {
+  _id: string;
+  title: string;
+}
 export default async function Footer() {
  
-    const CMSFooter = await client.fetch(`
-      *[_type == "footer"] {
-        heading,
-      }[0]
+    const CMSFooter:Post[] = await client.fetch(`
+      *[_type == "products" && "featured" in tags][0..5] {
+          _id,
+          title,
+        }
     `)
   
       console.log(CMSFooter);
-
-
-  
-  
-  const posts = [
-    {
-      name: "green-sofa",
-      title: "Sofa",
-    },
-    {
-        name: "plastic-chair",
-        title: "Armchair",
-    },
-    {
-      name: "new-wing-chair",
-      title: "Wing Chair",
-    },
-    {
-        name: "desk-chair",
-        title: "Desk Chair",
-    },
-    {
-        name: "wooden-chair",
-        title: "Wooden Chair",
-      },
-      {
-          name: "orange-chair",
-          title: "Park Chair",
-      },
-  ]
 
 
   return (
@@ -53,7 +35,7 @@ export default async function Footer() {
       <div className="flex flex-col lg:flex-row justify-around md:px-20">
         <div className="sm:flex">
         <div className="py-10 px-12 md:px-0">
-        <h2 className="flex justify-center sm:mr-20 md:mr-48 text-indigo-950 text-3xl font-bold my-3"><GiSofa className="text-[#029FAE] text-5xl mr-1"/><span className="mt-2">{CMSFooter.heading}</span></h2>
+        <h2 className="flex justify-center sm:mr-20 md:mr-48 text-indigo-950 text-3xl font-bold my-3"><GiSofa className="text-[#029FAE] text-5xl mr-1"/><span className="mt-2">Comforty</span></h2>
           <p className="text-center sm:text-left font-medium text-gray-500 text-sm md:text-lg md:py-4 mt-2">Vivamus tristique odio sit amet velit semper,<br />nen posuere trups interdum. <br />nCras egestas purus</p>
           <ul className="flex justify-center sm:justify-start gap-4 mt-3 text-xl text-gray-700">
             <li className="hover:border-2 border-[#029FAE] rounded-full p-2 md:p-3 hover:text-[#029FAE]"><a href="https://www.facebook.com/profile.php?id=100089981983705&mibextid=ZbWKwL"><FaFacebookF /></a></li>
@@ -68,9 +50,9 @@ export default async function Footer() {
         <div className="pt-4 sm:mt-12">
           <h3 className="text-slate-400 text-lg">CATEGORY</h3>
           <ul className=" md:mt-4 mt-2">
-            {posts.map((post) => (
-              <div key={post.name}>   
-            <li><Link href={`/posts/${post.name}`} className="hover:underline text-black hover:text-[#029FAE]">{post.title}</Link></li>
+            {CMSFooter.map((post) => (
+              <div key={post._id}>   
+            <li><Link href={`/posts/${post._id}`} className="hover:underline text-black hover:text-[#029FAE]">{post.title}</Link></li>
           </div>
             ))}
             </ul>
@@ -83,6 +65,16 @@ export default async function Footer() {
             <li><Link href="about" className="hover:underline text-black hover:text-[#029FAE]">Tearms & Condition</Link></li>
             <li><Link href="about" className="hover:underline text-black hover:text-[#029FAE]">Privacy Policy</Link></li>
             <li><Link href="shop" className="hover:underline text-black hover:text-[#029FAE]">Help</Link></li>
+            <li className="hover:underline text-black hover:text-[#029FAE]">
+            <ClerkProvider>
+                              <SignedOut>
+                                <SignInButton />
+                              </SignedOut>
+                              <SignedIn>
+                                <UserButton />
+                              </SignedIn>
+                        </ClerkProvider>
+            </li>
           </ul>
         </div>
         </div>
