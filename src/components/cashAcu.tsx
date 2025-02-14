@@ -5,7 +5,7 @@ import cib from "../../public/images/cib.png";
 import zo from "../../public/images/zo.png";
 import burnt from "../../public/images/burnt.png";
 import pandadoc from "../../public/images/pandadoc.png";
-import moz from "../../public/images/moz.png";
+import mooz from "../../public/images/moz.png";
 
 export default function CashAccount (){
     return(
@@ -18,7 +18,7 @@ export default function CashAccount (){
             <a href="https://zapier.com" target="blank"><Image src={zo} alt="Bank Account" className="w-40 h-14 transition-transform transform hover:scale-105"/></a>
             <a href="https://www.instagram.com/burnttoast/?hl=en" target="blank"><Image src={burnt} alt="Bank Account" className="w-40 h-14 transition-transform transform hover:scale-105"/></a>
             <a href="https://www.pandadoc.com/" target="blank"><Image src={pandadoc} alt="Bank Account" className="w-40 h-14 transition-transform transform hover:scale-105"/></a>
-            <a href="https://moz.com/" target="blank"><Image src={moz} alt="Bank Account" className="w-40 h-14 transition-transform transform hover:scale-105"/></a>
+            <a href="https://moz.com/" target="blank"><Image src={mooz} alt="Bank Account" className="w-40 h-14 transition-transform transform hover:scale-105"/></a>
         </div>
         </div>
         </>
