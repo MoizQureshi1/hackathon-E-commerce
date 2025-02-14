@@ -1,4 +1,4 @@
-import { client } from "@/sanity/lib/client";
+import { client } from "../sanity/lib/client";
 import Link from "next/link";
 import {FaCcPaypal, FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa";
 import { GiSofa } from "react-icons/gi";

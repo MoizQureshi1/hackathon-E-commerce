@@ -13,10 +13,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { client } from "@/sanity/lib/client";
+import { client } from "../../sanity/lib/client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { urlFor } from "@/sanity/lib/image";
+import { urlFor } from "../../sanity/lib/image";
 
 // Adjusted types for cart details
 type CartDetails = {

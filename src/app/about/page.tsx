@@ -5,7 +5,7 @@ import { SiTicktick } from "react-icons/si";
 import { LiaEnvelopeSolid } from "react-icons/lia";
 import { PiFlowerTulip } from "react-icons/pi";
 import Link from "next/link";
-import { client } from "@/sanity/lib/client";
+import { client } from "../../sanity/lib/client";
 
 interface Product {
     _id: string;

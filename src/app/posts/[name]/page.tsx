@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from "react";
-import { client } from "@/sanity/lib/client"; // Sanity client to fetch data
+import { client } from "../../../sanity/lib/client"; // Sanity client to fetch data
 import { LuShoppingCart } from "react-icons/lu"; // Cart icon for the Add to Cart button
 import Image from "next/image";
 import Link from "next/link";

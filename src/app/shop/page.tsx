@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { client } from "@/sanity/lib/client";
+import { client } from "../../sanity/lib/client";
 import { BsTelephoneFill } from "react-icons/bs";
 import { FaClock, FaHeadset } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";

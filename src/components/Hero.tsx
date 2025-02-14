@@ -1,7 +1,7 @@
 import { GoArrowRight } from "react-icons/go";
 import Link from "next/link";
 import Image from "next/image";
-import { client } from "@/sanity/lib/client";
+import { client } from "../sanity/lib/client";
 
 interface Product {
   _id: string;

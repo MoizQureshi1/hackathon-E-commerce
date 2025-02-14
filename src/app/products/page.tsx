@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { LuShoppingCart } from "react-icons/lu";
 import Link from "next/link";
-import { client } from "@/sanity/lib/client";
+import { client } from "../../sanity/lib/client";
 import Image from "next/image";
 
 interface Product {

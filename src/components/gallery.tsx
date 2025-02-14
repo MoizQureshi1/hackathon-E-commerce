@@ -1,4 +1,4 @@
-import { client } from "@/sanity/lib/client";
+import { client } from "../sanity/lib/client";
 import text from "../../public/images/text.png"
 import Link from "next/link";
 import Image from "next/image";

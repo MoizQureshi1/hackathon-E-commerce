@@ -16,7 +16,7 @@ import {
     UserButton
   } from '@clerk/nextjs'
 import { HiOutlineBars3CenterLeft } from "react-icons/hi2";
-import { client } from "@/sanity/lib/client";
+import { client } from "../sanity/lib/client";
 
 export default async function Navbar (){
     
