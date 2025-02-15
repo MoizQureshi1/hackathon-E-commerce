@@ -103,20 +103,29 @@ const ProductPage = ({ product, featuredProducts }: { product: Product; featured
           <h2 className="text-indigo-950 text-4xl font-bold lg:mr-64">{product.title}</h2>
           <p className="bg-cyan-600 p-1 rounded-2xl sm:mr-72 lg:mr-96 text-center text-white mt-4">${product.price}.00 USD</p>
           <p className="border-t-2 mt-7 pt-8 lg:mr-40 text-slate-400">{product.description}</p>
+          <div className="flex flex-col sm:flex-row mt-4 gap-4">
+          <button
+            onClick={() => addToCart(product)} 
+            className="flex p-3 px-5 bg-cyan-600 text-white my-6 rounded-md transition-transform transform hover:scale-105"
+          >
+            <LuShoppingCart className="mr-1 text-xl" />
+            Buy Now
+          </button>
           <button 
             onClick={() => addToCart(product)} 
-            className="flex p-3 px-3 bg-cyan-600 text-white my-6 rounded-md transition-transform transform hover:scale-105"
+            className="flex p-3 px-3 bg-cyan-600 text-white sm:my-6  rounded-md transition-transform transform hover:scale-105"
           >
             <LuShoppingCart className="mr-1 text-xl" />
             Add to Cart
           </button>
+          </div>
         </div>
       </div>
 
       {/* Featured Products Section */}
       <div className="flex justify-center md:justify-around mr-14 sm:mr-0 gap-4 sm:gap-14 lg:gap-96 lg:mr-40">
         <h2 className="text-2xl font-bold text-center md:text-left md:ml-10">FEATURED PRODUCTS</h2>
-        <button className="border-b-2 mb-7 mt-3 border-black font-bold">View all</button>
+        <Link href="products" className="border-b-2 mb-7 mt-3 border-black font-bold">View all</Link>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mx-6 lg:mx-40 mb-20">

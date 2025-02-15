@@ -60,8 +60,11 @@ export default function CartPage() {
   };
 
   // Calculate Subtotal and Total
-  const calculateTotal = () => {
+  const SubTotal = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0); // Update total to account for quantity
+  };
+  const calculateTotal = () => {
+    return cart.reduce((total, item) => total + item.price * item.quantity + 48, 0); // Update total to account for quantity
   };
 
   const cartItemCount = cart.length;
@@ -127,6 +130,7 @@ export default function CartPage() {
                 </div>
               ))
             )}
+            <p className="font-semibold">If your Products Quantity is not work so refresh your page.</p>
           </div>
         </div>
         <div>
@@ -134,10 +138,10 @@ export default function CartPage() {
             <h3 className="text-xl font-bold mb-7">Summary</h3>
             <p className="flex justify-between mb-3">
               <span>Subtotal</span>
-              <span>${calculateTotal().toFixed(2)}</span> {/* Format the total to two decimal places */}
+              <span>${SubTotal().toFixed(2)}</span> {/* Format the total to two decimal places */}
             </p>
             <p className="flex justify-between my-5">
-              <span className="mr-6">Estimated Delivery and Handling</span> <span>Free</span>
+              <span className="mr-6">Estimated Delivery and Handling</span> <span>96</span>
             </p>
             <p className="border-t-2 border-b-2 py-4 flex justify-between">
               <span>Total</span>
