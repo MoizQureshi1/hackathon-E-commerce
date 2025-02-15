@@ -119,7 +119,7 @@ const ProductPage = ({ product, featuredProducts }: { product: Product; featured
         <button className="border-b-2 mb-7 mt-3 border-black font-bold">View all</button>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mx-6 lg:mx-40 mb-20">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mx-6 lg:mx-40 mb-20">
         {featuredProducts.map((feature) => (
           <div key={feature._id}>
             <div className="flex justify-center transition-transform transform hover:scale-105">
