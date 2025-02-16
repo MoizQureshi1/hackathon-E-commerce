@@ -66,7 +66,7 @@ export default function CartPage() {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0); // Update total to account for quantity
   };
   const calculateTotal = () => {
-    return cart.reduce((total, item) => total + item.price * item.quantity + 48, 0); // Update total to account for quantity
+    return cart.reduce((total, item) => total + item.price * item.quantity + 0.2, 0);// Update total to account for quantity
   };
 
   const cartItemCount = cart.length;
@@ -145,7 +145,7 @@ export default function CartPage() {
               <span>${SubTotal().toFixed(2)}</span> {/* Format the total to two decimal places */}
             </p>
             <p className="flex justify-between my-5">
-              <span className="mr-6">Estimated Delivery and Handling</span> <span>96</span>
+              <span className="mr-6">Estimated Delivery and Handling</span> <span>$0.4</span>
             </p>
             <p className="border-t-2 border-b-2 py-4 flex justify-between">
               <span>Total</span>

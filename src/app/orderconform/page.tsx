@@ -82,7 +82,7 @@ console.log("Formatted Cart Details: ", cartDetails);  // Log cartDetails before
 
   // Calculate total price for the cart
   const totalPrice = cart
-    .reduce((acc: number, item: { price: number; quantity: number }) => acc + item.price * item.quantity, 0)
+    .reduce((acc: number, item: { price: number; quantity: number }) => acc + 0.2 + item.price * item.quantity, 0)
     .toFixed(2);
 
   // Initialize the form with default values
