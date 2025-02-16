@@ -5,6 +5,8 @@ import { FaRegHeart } from "react-icons/fa";
 import { AiOutlineDelete } from "react-icons/ai";
 import Link from "next/link";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import Footer from "@/components/footer";
+import Navbar from "@/components/header";
 
 interface Product {
   _id: string;
@@ -70,6 +72,8 @@ export default function CartPage() {
   const cartItemCount = cart.length;
 
   return (
+    <>
+    <Navbar/>
     <div className="max-w-screen-2xl mx-auto">
       <div className="flex flex-col md:flex-row items-center py-4 md:mx-28 gap-3 lg:gap-96 lg:ml-72 md:gap-32">
         <h1 className="text-3xl font-bold">Your Shopping Cart</h1>
@@ -159,5 +163,7 @@ export default function CartPage() {
         </div>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 }

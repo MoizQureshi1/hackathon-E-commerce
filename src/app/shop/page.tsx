@@ -20,6 +20,8 @@ import { FaLocationDot } from "react-icons/fa6";
 import { GoVerified } from "react-icons/go";
 import { IoTrophy } from "react-icons/io5";
 import { useState } from "react";
+import Navbar from "@/components/header";
+import Footer from "@/components/footer";
 
 const formSchema = z.object({
     fullName: z.string().min(2).max(49),
@@ -64,6 +66,7 @@ const ShopPage = () => {
 
     return(
        <>
+       <Navbar/>
         <div className="max-w-screen-2xl mx-auto">
         <Form {...form}>
             <div>
@@ -189,6 +192,7 @@ const ShopPage = () => {
                 </div>
             </div>
         </div>
+        <Footer/>
        </>
     )
 }

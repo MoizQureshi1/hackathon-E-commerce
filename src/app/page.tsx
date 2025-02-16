@@ -5,10 +5,13 @@ import Featured from "../components/featured";
 import Products from "../components/products";
 import Hero from "@/components/Hero";
 import { Suspense } from "react";
+import Navbar from "@/components/header";
+import Footer from "@/components/footer";
 
 export default function Home() {
   return (
     <>
+    <Navbar/>
     <div className="max-w-screen-2xl mx-auto">
     <Hero/>
 
@@ -32,6 +35,7 @@ export default function Home() {
       <Products/>
     </Suspense>
     </div>
+    <Footer/>
     </>
   );
 }

@@ -17,6 +17,8 @@ import { client } from "../../sanity/lib/client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { urlFor } from "../../sanity/lib/image";
+import Footer from "@/components/footer";
+import Navbar from "@/components/header";
 
 // Adjusted types for cart details
 type CartDetails = {
@@ -145,6 +147,8 @@ console.log("Formatted Cart Details: ", cartDetails);  // Log cartDetails before
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="text-[#272343] py-8">
       <Form {...form}>
         <div className="text-center mb-6">
@@ -301,6 +305,8 @@ console.log("Formatted Cart Details: ", cartDetails);  // Log cartDetails before
         </form>
       </Form>
     </div>
+    <Footer/>
+    </>
   );
 };
 

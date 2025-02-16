@@ -1,5 +1,7 @@
 'use client' // Error boundaries must be Client Components
  
+import Footer from '@/components/footer'
+import Navbar from '@/components/header'
 import { useEffect } from 'react'
  
 export default function Error({
@@ -15,6 +17,8 @@ export default function Error({
   }, [error])
  
   return (
+    <>
+    <Navbar/>
     <div className='max-w-screen-2xl mx-auto my-52'>
       <h2 className="text-4xl font-bold text-[#272343] text-center">Something went wrong!</h2>
       <div className='flex justify-center mt-4'>
@@ -28,5 +32,7 @@ export default function Error({
       </button>
       </div>
     </div>
+    <Footer/>
+    </>
   )
 }

@@ -5,6 +5,8 @@ import { LuShoppingCart } from "react-icons/lu"; // Cart icon for the Add to Car
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation"; // To navigate to the cart page
+import Navbar from "@/components/header";
+import Footer from "@/components/footer";
 
 // Define the Product type
 interface Product {
@@ -87,6 +89,8 @@ const ProductPage = ({ product, featuredProducts }: { product: Product; featured
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="max-w-screen-2xl mx-auto">
       {/* Product Details Section */}
       <div className="flex flex-col md:flex-row justify-center my-28 mx-20 md:mx-36">
@@ -144,6 +148,8 @@ const ProductPage = ({ product, featuredProducts }: { product: Product; featured
         ))}
       </div>  
     </div>
+    <Footer/>
+    </>
   );
 };
 

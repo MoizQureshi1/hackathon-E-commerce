@@ -1,3 +1,4 @@
+import { ClerkProvider, SignedOut, SignInButton } from "@clerk/nextjs";
 import { client } from "../sanity/lib/client";
 import Link from "next/link";
 import {FaCcPaypal, FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa";
@@ -5,13 +6,6 @@ import { GiSofa } from "react-icons/gi";
 import { IoLogoTwitter } from "react-icons/io";
 import { RiMastercardFill, RiVisaLine } from "react-icons/ri";
 import { SiAmericanexpress } from "react-icons/si";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton
-} from '@clerk/nextjs'
 
 interface Post {
   _id: string;
@@ -67,13 +61,10 @@ export default async function Footer() {
             <li><Link href="shop" className="hover:underline text-black hover:text-[#029FAE]">Help</Link></li>
             <li className="hover:underline text-black hover:text-[#029FAE]">
             <ClerkProvider>
-                              <SignedOut>
-                                <SignInButton />
-                              </SignedOut>
-                              <SignedIn>
-                                <UserButton />
-                              </SignedIn>
-                        </ClerkProvider>
+              <SignedOut>
+                <SignInButton />
+              </SignedOut>
+            </ClerkProvider>
             </li>
           </ul>
         </div>

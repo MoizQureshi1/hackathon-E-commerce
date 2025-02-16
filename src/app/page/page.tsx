@@ -1,6 +1,8 @@
 "use client"
 import { GoPlus } from "react-icons/go";
 import { useState } from "react"; // Importing useState for toggling visibility
+import Navbar from "@/components/header";
+import Footer from "@/components/footer";
 
 export default function ShopPage() {
   // State to toggle visibility of answers
@@ -12,6 +14,7 @@ export default function ShopPage() {
 
   return (
     <>
+    <Navbar/>
       <div className="max-w-screen-2xl mx-auto">
         <div>
           <div className="text-center">
@@ -131,6 +134,7 @@ export default function ShopPage() {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 }

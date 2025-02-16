@@ -5,6 +5,8 @@ import { LuShoppingCart } from "react-icons/lu";
 import Link from "next/link";
 import { client } from "../../sanity/lib/client";
 import Image from "next/image";
+import Navbar from "@/components/header";
+import Footer from "@/components/footer";
 
 interface Product {
   _id: string;
@@ -90,6 +92,8 @@ export default function Products() {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="max-w-screen-2xl mx-auto">
       <h2 className="text-3xl font-bold text-center md:text-left md:ml-40 mb-7 mt-20 text-[#272343]">
         All Products
@@ -183,5 +187,7 @@ export default function Products() {
         </div>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 }

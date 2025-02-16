@@ -6,6 +6,8 @@ import { LiaEnvelopeSolid } from "react-icons/lia";
 import { PiFlowerTulip } from "react-icons/pi";
 import Link from "next/link";
 import { client } from "../../sanity/lib/client";
+import Navbar from "@/components/header";
+import Footer from "@/components/footer";
 
 interface Product {
     _id: string;
@@ -44,6 +46,7 @@ export default async function AboutPage() {
 
     return (
         <>
+    <Navbar/>
             <div className="max-w-screen-2xl mx-auto">
                 <div className="flex flex-col md:flex-row justify-center text-center md:text-left gap-8 my-16 mx-10">
                     <div className="border-2 bg-[#007580] p-12 px-16">
@@ -107,6 +110,7 @@ export default async function AboutPage() {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </>
     );
 }
