@@ -8,15 +8,26 @@ import { IoLogoTwitter } from "react-icons/io";
 import { RiMastercardFill, RiVisaLine } from "react-icons/ri";
 import { SiAmericanexpress } from "react-icons/si";
 import { useState, useEffect } from "react";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod";
+import { Button } from "@/components/ui/button"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
 
 interface Post {
   _id: string;
   title: string;
 }
 
+const formSchema = z.object({
+  email: z.string().email(),
+})
+type FormType =  z.infer<typeof formSchema>
+
 export default function Footer() {
   const [CMSFooter, setCMSFooter] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -33,13 +44,28 @@ export default function Footer() {
     fetchData();
   }, []);
 
-  if (loading) {
-    return (
-      <div>
-        <p className="hidden">Loading...</p> {/* Display loading text */}
-      </div>
-    );
-  }
+  const form = useForm<FormType>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+        email: "",
+    }
+})
+
+  const onSubmit = async (values: FormType) => {
+          setLoading(true);
+          try {
+              await client.create({
+              _type: "footerEmail",
+              email: values.email,
+          });
+          alert("Your message has been submitted!");
+      } catch (error) {
+        console.error("Submission error:", error);
+        alert("There was an error submitting the form. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
 
   return (
     <>
@@ -139,25 +165,35 @@ export default function Footer() {
             </div>
           </div>
 
+          <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
           <div className="mt-20 text-center lg:text-left">
-            <h3 className="text-slate-400 text-sm font-bold pb-3 md:ml-3">NEWSLETTER</h3>
+            <FormLabel  className="text-slate-400 text-sm font-bold pb-3 md:ml-3">NEWSLETTER</FormLabel >
             <div className="flex justify-center flex-col md:flex-row mx-3 gap-3">
-              <input
-                type="text"
-                className="text-slate-500 bg-white font-normal border-2 p-3 md:pl-5 pl-2 md:pr-16 pr-6 rounded-lg"
-                placeholder="Your email"
-                required
-              />
-              <a href="https://www.youtube.com/@solve-swift" target="blank">
-                <button className="bg-[#029FAE] rounded-xl text-white font-bold py-3 md:px-8 px-3 ml-3 transition-transform transform hover:scale-105">
-                  Subscribe
-                </button>
-              </a>
+            <FormControl>
+              <Input placeholder="E-mail" {...field} className="text-slate-500 bg-white font-normal border-2 p-6 md:pl-5 pl-2 md:pr-16 pr-6 rounded-lg"/>
+                </FormControl>
+              <FormMessage />
+              <Button 
+                type="submit" 
+                className="bg-[#029FAE] rounded-xl text-white font-bold py-6 mt-0.5 md:px-8 px-3 ml-3 transition-transform transform hover:scale-105" disabled={loading} >
+                  {loading ? "Submitting..." : "Subscribe"}
+                  </Button>
             </div>
             <p className="text-slate-400 text-md mt-3 md:ml-3">
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. <br /> Cupiditate velit corrupti accusamus.
             </p>
           </div>
+              </FormItem>
+              )}
+              />
+        </form>
+        </Form> 
         </div>
 
         <div className="border-t-2 mt-8 text-gray-400 py-3 text-lg flex flex-col md:flex-row text-center md:text-left justify-around">

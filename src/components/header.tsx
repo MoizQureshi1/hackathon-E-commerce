@@ -74,7 +74,7 @@ export default function Navbar () {
             <div className="flex justify-around bg-[#F0F2F3]">                 
                 <h2 className="flex md:mr-48 lg:mr-44 text-[#272343] text-3xl font-medium my-5 sm:my-3"><GiSofa className="text-[#029FAE] text-5xl mr-1"/><span className="mt-2">{CMSHeader?.heading}</span></h2>                 
                 <div className="flex gap-3">                     
-                    <Link href="cart" className="flex md:ml-40 bg-[#FFFFFF] rounded-xl text-[#272343] font-medium sm:py-3 pt-5 px-5 my-3 transition-transform transform hover:scale-105"><LuShoppingCart className="mr-2 text-xl"/><h1 className="hidden sm:block">Cart</h1></Link>                       
+                    <Link href="cart" className="flex md:ml-40 bg-[#FFFFFF] rounded-xl text-[#272343] font-medium sm:py-3 pt-5 px-5 my-3 transition-transform transform hover:scale-105"><LuShoppingCart className="mr-2 text-xl"/><h1 className="hidden sm:block">{loading ? "Wait..." : "Cart"}</h1></Link>                       
                     <div className="mt-7 sm:mt-5 transition-transform transform hover:scale-105">                     
                         <ClerkProvider>                       
                             <SignedIn>                         

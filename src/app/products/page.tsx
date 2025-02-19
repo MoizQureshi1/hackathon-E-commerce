@@ -5,6 +5,12 @@ import { LuShoppingCart } from "react-icons/lu";
 import Link from "next/link";
 import { client } from "../../sanity/lib/client";
 import Image from "next/image";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod";
+import { Button } from "@/components/ui/button"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
 import Navbar from "@/components/header";
 import Footer from "@/components/footer";
 
@@ -21,9 +27,15 @@ interface Product {
   tags: string[];
 }
 
+const formSchema = z.object({
+  email: z.string().email(),
+})
+type FormType =  z.infer<typeof formSchema>
+
 export default function Products() {
   const [CMSProduct, setCMSProduct] = useState<Product[]>([]);
   const [CMSInsta, setCMSInsta] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(false);
 
   // Fetch the featured products and Instagram products from the Sanity CMS
   useEffect(() => {
@@ -91,6 +103,29 @@ export default function Products() {
     }
   };
 
+  const form = useForm<FormType>({
+      resolver: zodResolver(formSchema),
+      defaultValues: {
+          email: "",
+      }
+  })
+  
+    const onSubmit = async (values: FormType) => {
+            setLoading(true);
+            try {
+                await client.create({
+                _type: "instaEmail",
+                email: values.email,
+            });
+            alert("Your message has been submitted!");
+        } catch (error) {
+          console.error("Submission error:", error);
+          alert("There was an error submitting the form. Please try again later.");
+        } finally {
+          setLoading(false);
+        }
+      };
+
   return (
     <>
     <Navbar/>
@@ -152,22 +187,33 @@ export default function Products() {
       {/* Instagram Products Section */}
       <div className="flex justify-center bg-slate-100 mt-24 rounded-md">
         <div className="text-black my-24 text-center">
-          <h4 className="text-3xl font-semibold mb-12">Or Subscribe To The Newsletter</h4>
-          <p>
-            <input
-              type="text"
-              className="border-b-2 border-slate-600 bg-slate-100 pb-1 md:pr-48 pr-12 mr-4"
-              placeholder="Email Address..."
-              required
+        <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+        control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+          <FormLabel className="text-3xl font-semibold mb-12">Or Subscribe To The Newsletter</FormLabel>
+          <p className="flex justify-center mx-80">
+          <FormControl>
+            <Input placeholder="E-mail" {...field} 
+              className="border-b-2 border-b-slate-500 bg-slate-100 pb-1 md:pr-48 pr-12 mr-4"
             />
-            <a
-              href="https://www.linkedin.com/in/moiz-qureshi-0884592b9"
-              target="blank"
-              className="border-b-2 pb-2 px-2 border-slate-600"
+            </FormControl>
+            <FormMessage />
+            <Button 
+                type="submit"
+              className="border-b-2 pb-2 px-4 border-slate-600" disabled={loading} 
             >
-              SUBMIT
-            </a>
+             {loading ? "Submitting..." : "Submit"}
+             </Button>
           </p>
+          </FormItem>
+              )}
+          />
+          </form>
+          </Form>
           <h1 className="text-4xl font-semibold my-14 mx-5">Follow Products And Discounts On Instagram</h1>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mx-20 sm:mx-32 lg:mx-40 mb-20">
             {CMSInsta.map((insta) => (
