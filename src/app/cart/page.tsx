@@ -108,7 +108,7 @@ export default function CartPage() {
                       <h3 className="text-slate-700 mb-8 mt-2">{post.title}</h3>
                       <span className="text-slate-400">
                         <p className="mb-2">Ashen Slate/Cobalt Bliss</p>
-                        <div className="flex gap-3"> 
+                        <div className="flex justify-center gap-3"> 
                           <span> Quantity : </span> 
                           <button className="bg-red-500  px-1" onClick={() => decrement(post._id)}> 
                             <IoIosArrowBack /> 

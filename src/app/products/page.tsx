@@ -185,17 +185,16 @@ export default function Products() {
       </div>
 
       {/* Instagram Products Section */}
-      <div className="flex justify-center bg-slate-100 mt-24 rounded-md">
-        <div className="text-black my-24 text-center">
+        <div className="text-black my-24 text-center bg-slate-100 mt-24 rounded-md py-10">
         <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex justify-center">
         <FormField
         control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
           <FormLabel className="text-3xl font-semibold mb-12">Or Subscribe To The Newsletter</FormLabel>
-          <p className="flex justify-center mx-80">
+          <p className="flex justify-center mx-5 lg:mx-80">
           <FormControl>
             <Input placeholder="E-mail" {...field} 
               className="border-b-2 border-b-slate-500 bg-slate-100 pb-1 md:pr-48 pr-12 mr-4"
@@ -215,7 +214,7 @@ export default function Products() {
           </form>
           </Form>
           <h1 className="text-4xl font-semibold my-14 mx-5">Follow Products And Discounts On Instagram</h1>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mx-20 sm:mx-32 lg:mx-40 mb-20">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mx-20 sm:mx-32 lg:mx-40 mb-10">
             {CMSInsta.map((insta) => (
               <div key={insta._id}>
                 <Link href={`/posts/${insta._id}`}>
@@ -232,7 +231,6 @@ export default function Products() {
           </div>
         </div>
       </div>
-    </div>
     <Footer/>
     </>
   );

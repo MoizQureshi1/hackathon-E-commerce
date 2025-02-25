@@ -109,7 +109,7 @@ const ShopPage = () => {
                             <FormItem>
                                 <FormLabel className="text-black font-semibold mt-2">Full Name</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="Your Full Name" {...field} className="border-2 py-7 pr-36 pl-8 rounded-lg mt-3"/>
+                                  <Input placeholder="Your Full Name" {...field} className="border-2 py-7 sm:pr-36 sm:pl-8 rounded-lg mt-3"/>
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -122,7 +122,7 @@ const ShopPage = () => {
                             <FormItem>
                                 <FormLabel className="text-black font-semibold mt-2">Email address</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="email.address@gmail.com" {...field} className="border-2 py-7 pr-36 pl-8 rounded-lg mt-3"/>
+                                  <Input placeholder="email.address@gmail.com" {...field} className="border-2 py-7 sm:pr-36 sm:pl-8 rounded-lg mt-3"/>
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -135,7 +135,7 @@ const ShopPage = () => {
                             <FormItem>
                                 <FormLabel className="text-black font-semibold mt-2">Subject</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="Your Subject" {...field} className="border-2 py-7 pr-36 pl-8 rounded-lg mt-3"/>
+                                  <Input placeholder="Your Subject" {...field} className="border-2 py-7 sm:pr-36 sm:pl-8 rounded-lg mt-3"/>
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -148,7 +148,7 @@ const ShopPage = () => {
                             <FormItem className="flex flex-col">
                                 <FormLabel className="text-black font-semibold mt-2">Message</FormLabel>
                                 <FormControl>
-                                  <textarea placeholder="Hi! id like to ask about" {...field} className="border-2 py-2 pr-36 pl-8 rounded-lg mt-3"/>
+                                  <textarea placeholder="Hi! id like to ask about" {...field} className="border-2 py-2 sm:pr-36 sm:pl-8 rounded-lg mt-3"/>
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
