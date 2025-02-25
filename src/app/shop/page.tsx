@@ -101,7 +101,7 @@ const ShopPage = () => {
                         </div>
                     </div>
                     <div>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="mx-20 md:mx-0">
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="mx-8 sm:mx-20 md:mx-0">
                         <FormField
                           control={form.control}
                           name="fullName"

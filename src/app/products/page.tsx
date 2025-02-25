@@ -214,7 +214,7 @@ export default function Products() {
           </form>
           </Form>
           <h1 className="text-4xl font-semibold my-14 mx-5">Follow Products And Discounts On Instagram</h1>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mx-20 sm:mx-32 lg:mx-40 mb-10">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mx-10 sm:mx-32 lg:mx-40 mb-10">
             {CMSInsta.map((insta) => (
               <div key={insta._id}>
                 <Link href={`/posts/${insta._id}`}>
