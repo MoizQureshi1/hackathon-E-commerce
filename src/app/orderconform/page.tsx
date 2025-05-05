@@ -20,7 +20,7 @@ import { urlFor } from "../../sanity/lib/image";
 import Footer from "@/components/footer";
 import Navbar from "@/components/header";
 
-// Adjusted types for cart details
+// Cart type
 type CartDetails = {
   _id: string;
   name: string;
@@ -30,6 +30,14 @@ type CartDetails = {
   quantity: number;
 };
 
+type FormattedCartItem = {
+  name: string;
+  price: number;
+  quantity: number;
+  imageUrl: string;
+};
+
+// Schema
 const formSchema = z.object({
   fullName: z.string().min(2).max(49),
   email: z.string().email(),
@@ -40,12 +48,12 @@ const formSchema = z.object({
   cartDetails: z.array(
     z.object({
       name: z.string(),
-      price: z.string(),
+      price: z.number(), // NOTE: price should be number
       imageUrl: z.string(),
       quantity: z.number(),
     })
   ),
-  totalPrice: z.string(),
+  totalPrice: z.number(), // totalPrice as number
 });
 
 type FormType = z.infer<typeof formSchema>;
@@ -54,76 +62,62 @@ const ContactForm = () => {
   const [cart, setCart] = useState<CartDetails[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // Fetch cart items from localStorage on component mount
-  useEffect(() => {
-    const cartData = localStorage.getItem("cart");
-    if (cartData) {
-      const parsedCart = JSON.parse(cartData);
-      console.log("Cart Data from LocalStorage: ", parsedCart); // Debug log
-      setCart(parsedCart);
-    }
-  }, []);
-
-  useEffect(() => {
-    console.log("Cart state: ", cart); // Log the cart state
-  }, [cart]); // This will log every time the cart state changes
-  
-  // Format cart data for the form
-  const cartDetails = cart.length
-  ? cart.map((item) => ({
-      name: item.title || "Unnamed Product", // Fallback to "Unnamed Product"
-      price: `$${(item.price * item.quantity).toFixed(2)}`, // Format price
-      quantity: item.quantity || 1, // Fallback to quantity 1
-      imageUrl: item.image_url || "/default-image.jpg", // Fallback to default image
-    }))
-  : [];
-
-  console.log("Formatted Cart Details: ", cartDetails);  // Log cartDetails before rendering the form
-
-  // Calculate total price for the cart
-  const totalPrice = cart
-    .reduce((acc: number, item: { price: number; quantity: number }) => acc + 0.2 + item.price * item.quantity, 0)
-    .toFixed(2);
-
-  // Initialize the form with default values
   const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       fullName: "",
       email: "",
-      subject: cartDetails.length ? "" : "General Inquiry about products",
-      message:
-        cartDetails.length
-          ? "" 
-          : "I am interested in the following products:\n" + 
-            cartDetails
-              .map((item) => `${item.name} - ${item.price} - Quantity: ${item.quantity}`)
-              .join(", "),
-      cartDetails: cartDetails,
-      totalPrice: `$${totalPrice}`,
+      subject: "",
+      message: "",
+      cartDetails: [],
+      totalPrice: 0,
       address: "",
       phoneNumber: "",
-    },    
+    },
   });
 
-  // Handle form submission
+  // Load cart from localStorage
+  useEffect(() => {
+    const cartData = localStorage.getItem("cart");
+    if (cartData) {
+      const parsedCart = JSON.parse(cartData);
+
+      const formattedCart: FormattedCartItem[] = parsedCart.map((item: CartDetails) => ({
+        name: item.title || "Unnamed Product",
+        price: Number(item.price) * (item.quantity || 1),
+        quantity: item.quantity || 1,
+        imageUrl: item.image_url || "/default-image.jpg",
+      }));
+      
+      const totalPrice = formattedCart.reduce(
+        (acc: number, item: FormattedCartItem) => acc + item.price,
+        0
+      );
+      
+      form.reset({
+        fullName: "",
+        email: "",
+        subject: "Order Inquiry",
+        message:
+          "I am interested in the following products:\n" +
+          formattedCart
+            .map(
+              (item: FormattedCartItem) =>
+                `${item.name} - $${item.price.toFixed(2)} - Quantity: ${item.quantity}`
+            )
+            .join("\n"),
+        address: "",
+        phoneNumber: "",
+        cartDetails: formattedCart,
+        totalPrice,
+      });
+
+      setCart(parsedCart);
+    }
+  }, [form]);
+
+  // Submit
   const onSubmit = async (values: FormType) => {
-    console.log("Form Values on Submit: ", values); // Debug form values
-
-    // Format cart details for submission
-    const finalCartDetails = values.cartDetails.map((item) => ({
-      name: item.name,
-      price: parseFloat(item.price.replace('$', '')), // Remove '$' and convert to number
-      quantity: item.quantity,
-      imageUrl: item.imageUrl,
-    }));
-
-    console.log("Final Cart Details: ", finalCartDetails); // Debug final cart details
-
-    const finalTotalPrice = parseFloat(values.totalPrice.replace('$', ''));
-
-    console.log("Formatted Total Price: ", finalTotalPrice);
-
     setLoading(true);
     try {
       const response = await client.create({
@@ -134,14 +128,19 @@ const ContactForm = () => {
         message: values.message,
         address: values.address,
         phoneNumber: values.phoneNumber,
-        cartDetails: finalCartDetails, // Send cart details as an array of objects
-        totalPrice: finalTotalPrice,  // Send total price as a number
+        cartDetails: values.cartDetails,
+        totalPrice: values.totalPrice,
       });
-      console.log("Sanity Response: ", response); // Debug response from Sanity
-      alert("Your message has been submitted!");
+      console.log("Sanity Response:", response);
+      alert("Your order has been submitted!");
+
+      form.reset(); // Reset form
+      localStorage.removeItem("cart"); // Optional: Clear cart
     } catch (error) {
       console.error("Submission error:", error);
-      alert("There was an error submitting the form. Please try again later.");
+      alert("Error submitting the form. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -151,7 +150,7 @@ const ContactForm = () => {
       <div className="text-[#272343] py-8">
         <Form {...form}>
           <div className="text-center mb-6">
-            <h2 className="text-3xl font-extrabold font-sans mb-2">Contact Us</h2>
+            <h2 className="text-3xl font-extrabold font-sans mb-2">CheckOut Form</h2>
             <p>Please fill out the form below to get in touch with us</p>
           </div>
           <form
@@ -196,12 +195,7 @@ const ContactForm = () => {
                 <FormItem>
                   <FormLabel>Phone Number</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Enter your phone number"
-                      {...field}
-                      value={field.value || ""}
-                      className="bg-white"
-                    />
+                    <Input placeholder="Enter your phone number" {...field} className="bg-white" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -216,12 +210,7 @@ const ContactForm = () => {
                 <FormItem>
                   <FormLabel>Address</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Enter your address"
-                      {...field}
-                      value={field.value || ""}
-                      className="bg-white"
-                    />
+                    <Input placeholder="Enter your address" {...field} className="bg-white" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -247,56 +236,54 @@ const ContactForm = () => {
               control={form.control}
               name="message"
               render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel className="mb-1 mt-1">Message</FormLabel>
+                <FormItem>
+                  <FormLabel>Message</FormLabel>
                   <FormControl>
                     <textarea
                       placeholder="Message"
                       {...field}
-                      className="bg-white text-sm font-medium border-2 pt-3 pl-3 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      className="bg-white p-3 border rounded w-full"
+                      rows={4}
                     />
                   </FormControl>
                 </FormItem>
               )}
             />
 
-            {cartDetails.length === 0 ? (
-              <p>No cart items available.</p>
-            ) : (
+            {/* Cart Details */}
+            {cart.length > 0 && (
               <div className="space-y-4 grid sm:grid-cols-2">
-                {cartDetails.map((product, index) => (
+                {form.getValues("cartDetails").map((product, index) => (
                   <div key={index} className="flex items-center space-x-4">
                     <Image
-                      src={urlFor(product.imageUrl).width(500).height(500).url()}
+                      src={urlFor(product.imageUrl).width(200).height(200).url()}
                       alt={product.name}
-                      width={50}
-                      height={50}
+                      width={60}
+                      height={60}
                       className="w-16 h-16 object-cover rounded"
                     />
-                    <div className="flex flex-col">
+                    <div>
                       <p className="text-sm font-semibold">{product.name}</p>
-                      <div className="flex gap-3">
-                        <p className="text-xs text-gray-500">Price - {product.price}</p>
-                        <p className="text-xs text-gray-500">Quantity - {product.quantity}</p>
-                      </div>
+                      <p className="text-xs text-gray-500">Price: ${product.price.toFixed(2)}</p>
+                      <p className="text-xs text-gray-500">Qty: {product.quantity}</p>
                     </div>
                   </div>
                 ))}
               </div>
             )}
 
-            {/* Display Total Price */}
-            {cartDetails.length > 0 && (
+            {/* Total Price */}
+            {form.watch("totalPrice") > 0 && (
               <div className="mt-4 text-lg font-semibold">
-                <p>Total Price: {`$${totalPrice}`}</p>
+                Total Price: ${form.watch("totalPrice").toFixed(2)}
               </div>
             )}
 
             {/* Submit Button */}
             <Button
               type="submit"
-              className="flex text-sm font-semibold py-3 px-7 rounded-lg bg-[#029FAE] hover:bg-cyan-600 text-white mx-6 transition-transform transform hover:scale-105"
               disabled={loading}
+              className="text-white bg-[#029FAE] hover:bg-cyan-600 px-7 py-3 rounded-lg transition-transform transform hover:scale-105"
             >
               {loading ? "Submitting..." : "Submit"}
             </Button>

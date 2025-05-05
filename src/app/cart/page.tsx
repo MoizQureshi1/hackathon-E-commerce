@@ -39,18 +39,26 @@ export default function CartPage() {
 
   // Increment the quantity of a specific product
   const increment = (productId: string) => {
-    setCart(cart.map(item => 
-      item._id === productId ? { ...item, quantity: item.quantity + 1 } : item
-    ));
-    localStorage.setItem("cart", JSON.stringify(cart)); // Update localStorage
+    setCart(prevCart => {
+      const updatedCart = prevCart.map(item =>
+        item._id === productId ? { ...item, quantity: item.quantity + 1 } : item
+      );
+      localStorage.setItem("cart", JSON.stringify(updatedCart)); // Update localStorage after cart is updated
+      return updatedCart;
+    });
   };
 
   // Decrement the quantity of a specific product
   const decrement = (productId: string) => {
-    setCart(cart.map(item => 
-      item._id === productId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
-    ));
-    localStorage.setItem("cart", JSON.stringify(cart)); // Update localStorage
+    setCart(prevCart => {
+      const updatedCart = prevCart.map(item =>
+        item._id === productId && item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      );
+      localStorage.setItem("cart", JSON.stringify(updatedCart)); // Update localStorage after cart is updated
+      return updatedCart;
+    });
   };
 
   // Handle removing an item from the cart
