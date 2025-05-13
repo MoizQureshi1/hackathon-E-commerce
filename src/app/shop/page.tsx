@@ -22,6 +22,8 @@ import { IoTrophy } from "react-icons/io5";
 import { useState } from "react";
 import Navbar from "@/components/header";
 import Footer from "@/components/footer";
+import { useToast } from "@/hooks/use-toast"
+import { ToastAction } from "@/components/ui/toast"
 
 const formSchema = z.object({
     fullName: z.string().min(2).max(49),
@@ -33,7 +35,8 @@ const formSchema = z.object({
 type FormType =  z.infer<typeof formSchema>
 
 const ShopPage = () => {
-      const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const { toast } = useToast();
 
     const form = useForm<FormType>({
         resolver: zodResolver(formSchema),
@@ -49,20 +52,31 @@ const ShopPage = () => {
         setLoading(true);
         try {
             await client.create({
-            _type: "contactForm",
-            name: values.fullName,
-            email: values.email,
-            subject: values.subject,
-            message: values.message
-        });
-        alert("Your message has been submitted!");
-    } catch (error) {
-      console.error("Submission error:", error);
-      alert("There was an error submitting the form. Please try again later.");
-    } finally {
-      setLoading(false);
-    }
-  };
+                _type: "contactForm",
+                name: values.fullName,
+                email: values.email,
+                subject: values.subject,
+                message: values.message
+            });
+            toast({
+                title: "Message Sent Successfully! ✨",
+                description: "Thank you for contacting us. We'll get back to you soon.",
+                action: <ToastAction altText="Close">Close</ToastAction>,
+                className: "bg-green-50 border-green-200",
+            });
+            form.reset();
+        } catch (error) {
+            console.error("Submission error:", error);
+            toast({
+                variant: "destructive",
+                title: "Error!",
+                description: "There was an error submitting the form. Please try again later.",
+                action: <ToastAction altText="Try again">Try again</ToastAction>,
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return(
        <>

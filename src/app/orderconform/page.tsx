@@ -19,6 +19,8 @@ import { useEffect, useState } from "react";
 import { urlFor } from "../../sanity/lib/image";
 import Footer from "@/components/footer";
 import Navbar from "@/components/header";
+import { useToast } from "@/hooks/use-toast"
+import { ToastAction } from "@/components/ui/toast"
 
 // Cart type
 type CartDetails = {
@@ -61,6 +63,7 @@ type FormType = z.infer<typeof formSchema>;
 const ContactForm = () => {
   const [cart, setCart] = useState<CartDetails[]>([]);
   const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
 
   const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
@@ -132,13 +135,24 @@ const ContactForm = () => {
         totalPrice: values.totalPrice,
       });
       console.log("Sanity Response:", response);
-      alert("Your order has been submitted!");
+      
+      toast({
+        title: "Order Confirmed! 🎉",
+        description: "Thank you for your order. We'll process it shortly.",
+        action: <ToastAction altText="View Order">View Order</ToastAction>,
+        className: "bg-green-50 border-green-200",
+      });
 
       form.reset(); // Reset form
-      localStorage.removeItem("cart"); // Optional: Clear cart
+      localStorage.removeItem("cart"); // Clear cart
     } catch (error) {
       console.error("Submission error:", error);
-      alert("Error submitting the form. Please try again later.");
+      toast({
+        variant: "destructive",
+        title: "Order Failed!",
+        description: "There was an error processing your order. Please try again.",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
     } finally {
       setLoading(false);
     }

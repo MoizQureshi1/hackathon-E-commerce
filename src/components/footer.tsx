@@ -14,6 +14,8 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { useToast } from "@/hooks/use-toast"
+import { ToastAction } from "@/components/ui/toast"
 
 interface Post {
   _id: string;
@@ -28,6 +30,7 @@ type FormType =  z.infer<typeof formSchema>
 export default function Footer() {
   const [CMSFooter, setCMSFooter] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     async function fetchData() {
@@ -52,20 +55,31 @@ export default function Footer() {
 })
 
   const onSubmit = async (values: FormType) => {
-          setLoading(true);
-          try {
-              await client.create({
-              _type: "footerEmail",
-              email: values.email,
-          });
-          alert("Your message has been submitted!");
-      } catch (error) {
-        console.error("Submission error:", error);
-        alert("There was an error submitting the form. Please try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
+    setLoading(true);
+    try {
+      await client.create({
+        _type: "footerEmail",
+        email: values.email,
+      });
+      toast({
+        title: "Successfully Subscribed! 🎉",
+        description: "Thank you for subscribing to our newsletter.",
+        action: <ToastAction altText="Close">Close</ToastAction>,
+        className: "bg-green-50 border-green-200",
+      });
+      form.reset();
+    } catch (error) {
+      console.error("Submission error:", error);
+      toast({
+        variant: "destructive",
+        title: "Error!",
+        description: "There was an error submitting the form. Please try again later.",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
